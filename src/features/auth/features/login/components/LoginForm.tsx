@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useLogin } from "@/lib/api/auth";
+import { authToken } from "@/lib/token/AuthToken";
+import { useAuthContext } from "@/store/authStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
@@ -26,6 +28,8 @@ export function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+
+  const { setUser } = useAuthContext();
 
   const [serverError, setServerError] = useState<string>("");
 
@@ -62,9 +66,12 @@ export function LoginForm() {
 
   useEffect(() => {
     if (isSuccess) {
+      const user = authToken.decode();
+      setUser(user);
       reset();
       navigate("/dashboard");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, isSuccess, reset]);
 
   return (

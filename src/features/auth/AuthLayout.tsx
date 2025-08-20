@@ -8,7 +8,6 @@ export function AuthLayout() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log(navigate);
       navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);

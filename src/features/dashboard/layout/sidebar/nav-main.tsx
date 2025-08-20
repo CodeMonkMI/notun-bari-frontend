@@ -26,7 +26,7 @@ export function NavMain() {
       icon: IconDashboard,
     },
     {
-      title: "Categories",
+      title: "Users",
       url: "#",
       icon: IconListDetails,
     },

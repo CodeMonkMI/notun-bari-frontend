@@ -31,3 +31,8 @@ export const useLogin = () =>
       }
     },
   });
+
+export const useLogout: () => () => void = () => () => {
+  authToken.remove();
+  refreshToken.remove();
+};

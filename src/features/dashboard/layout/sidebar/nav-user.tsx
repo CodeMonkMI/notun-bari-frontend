@@ -14,19 +14,36 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useLogout } from "@/lib/api/auth";
+import { useAuthContext } from "@/store/authStore";
 import {
   IconDotsVertical,
   IconLogout,
   IconUserCircle,
 } from "@tabler/icons-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
+
   const user = {
     name: "shadcn",
     email: "m@example.com",
     avatar: "https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg",
   };
+  const { clear, user: a } = useAuthContext();
+  const logout = useLogout();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    logout();
+    clear();
+    navigate("/auth/login");
+  };
+  useEffect(() => {
+    console.log(a);
+  }, [a]);
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -81,7 +98,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logoutHandler}>
               <IconLogout />
               Log out
             </DropdownMenuItem>
