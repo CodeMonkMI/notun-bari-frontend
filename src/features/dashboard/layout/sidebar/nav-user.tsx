@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +14,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useLogout } from "@/lib/api/auth";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useLogout, useMe } from "@/lib/api/auth";
 import { useAuthContext } from "@/store/authStore";
 import {
   IconDotsVertical,
@@ -27,14 +28,11 @@ import { useNavigate } from "react-router";
 export function NavUser() {
   const { isMobile } = useSidebar();
 
-  const user = {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg",
-  };
-  const { clear, user: a } = useAuthContext();
+  const { clear } = useAuthContext();
   const logout = useLogout();
   const navigate = useNavigate();
+
+  const { data: me, isPending, isSuccess, isError } = useMe();
 
   const logoutHandler = () => {
     logout();
@@ -42,8 +40,21 @@ export function NavUser() {
     navigate("/auth/login");
   };
   useEffect(() => {
-    console.log(a);
-  }, [a]);
+    if (isSuccess) {
+      console.log(me);
+    }
+  }, [me, isSuccess]);
+
+  if (isPending) {
+    return (
+      <div className="flex items-center">
+        <Skeleton className="h-16 w-full rounded-md" />
+      </div>
+    );
+  }
+
+  if (isError) return null;
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -54,13 +65,18 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
+                <AvatarFallback className="rounded-lg">
+                  {me?.first_name.slice(0, 1)}
+                  {me?.last_name.slice(0, 1)}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">
+                  {me?.first_name} {me?.last_name}
+                </span>
                 <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
+                  {me?.email}
                 </span>
               </div>
               <IconDotsVertical className="ml-auto size-4" />
@@ -75,13 +91,17 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {me?.first_name.slice(0, 1)}
+                    {me?.last_name.slice(0, 1)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <span className="truncate font-medium">
+                    {me?.first_name} {me?.last_name}
+                  </span>
                   <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
+                    {me?.email}
                   </span>
                 </div>
               </div>

@@ -11,9 +11,7 @@ export class Axios {
   private constructor() {}
 
   public static get instance(): AxiosInstance | null {
-    if (!this.axiosInstance) {
-      this.createInstance();
-    }
+    this.createInstance();
     return this.axiosInstance;
   }
 
