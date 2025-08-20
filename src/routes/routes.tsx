@@ -4,6 +4,8 @@ import {
   LoginContainer,
   RegistrationContainer,
 } from "@/features/auth";
+import { DashboardContainer } from "@/features/dashboard";
+import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import { HomeContainer } from "@/features/home";
 import { createBrowserRouter } from "react-router";
 
@@ -32,6 +34,21 @@ export const router = createBrowserRouter([
           {
             path: "register",
             element: <RegistrationContainer />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        // element: <AuthLayout />,
+        children: [
+          {
+            path: "",
+            element: <DashboardContainer />,
           },
         ],
       },
