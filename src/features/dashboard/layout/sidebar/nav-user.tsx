@@ -75,6 +75,10 @@ export function NavUser() {
                 <IconUserCircle />
                 Account
               </DropdownMenuItem>
+              <DropdownMenuItem>
+                <IconUserCircle />
+                Settings
+              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
