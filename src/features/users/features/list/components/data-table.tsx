@@ -73,7 +73,7 @@ export function UserDataTable({
   });
 
   return (
-    <div className="w-full flex-col gap-6">
+    <div className="w-full flex-col gap-6 text-gray-300">
       {/* Top actions bar */}
 
       <div className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
@@ -231,7 +231,7 @@ const columns: ColumnDef<z.infer<SingleUser>>[] = [
           Staff
         </Badge>
       ) : (
-        <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
+        <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
           User
         </Badge>
       ),
