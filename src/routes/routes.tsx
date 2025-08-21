@@ -7,7 +7,7 @@ import {
 import { DashboardContainer } from "@/features/dashboard";
 import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import { HomeContainer } from "@/features/home";
-import { UserListContainer } from "@/features/users/features/list/UserListContainer";
+import { UserListContainer } from "@/features/users";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
