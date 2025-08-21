@@ -24,9 +24,9 @@ export function UserListContainer() {
           placeholder="Search users..."
           value={globalFilter ?? ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          className="max-w-xs"
+          className="max-w-xs text-gray-200"
         />
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="text-gray-200">
           <Link className="flex items-center" to={"/dashboard/users/create"}>
             <IconPlus />
             Add User
