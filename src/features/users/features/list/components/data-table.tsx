@@ -34,6 +34,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
+import { Link } from "react-router";
 import { z } from "zod";
 
 // Schema
@@ -250,40 +251,47 @@ const columns: ColumnDef<z.infer<SingleUser>>[] = [
     id: "actions",
     header: "Actions",
     enableSorting: false,
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-muted-foreground data-[state=open]:bg-muted"
-          >
-            <IconDotsVertical />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-40">
-          <DropdownMenuItem onClick={() => console.log("Update", row.original)}>
-            Update User
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => console.log("Suspend", row.original)}
-          >
-            Suspend User
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => console.log("Promote", row.original)}
-          >
-            Promote User
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            variant="destructive"
-            onClick={() => console.log("Delete", row.original)}
-          >
-            Delete User
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    cell: ({ row }) => {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground data-[state=open]:bg-muted"
+            >
+              <IconDotsVertical />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-40">
+            <DropdownMenuItem>
+              <Link
+                className=" w-full"
+                to={`/dashboard/users/${row.id}/update`}
+              >
+                Update User
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => console.log("Suspend", row.original)}
+            >
+              Suspend User
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => console.log("Promote", row.original)}
+            >
+              Promote User
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={() => console.log("Delete", row.original)}
+            >
+              Delete User
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];

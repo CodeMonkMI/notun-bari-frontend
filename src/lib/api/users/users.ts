@@ -26,3 +26,14 @@ export const useUsers = () =>
     queryKey: [usersPath],
     queryFn: users,
   });
+
+const user = async (id: SingleUser["id"]): Promise<SingleUser | undefined> => {
+  const data: AxiosResponse = await axios.get(`${usersPath}/${id}`);
+  return data.data;
+};
+
+export const useUser = (id: SingleUser["id"]) =>
+  useQuery({
+    queryKey: [usersPath, id],
+    queryFn: () => user(id),
+  });

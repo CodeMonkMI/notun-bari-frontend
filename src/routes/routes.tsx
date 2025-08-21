@@ -7,7 +7,11 @@ import {
 import { DashboardContainer } from "@/features/dashboard";
 import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import { HomeContainer } from "@/features/home";
-import { UserCreateContainer, UserListContainer } from "@/features/users";
+import {
+  UserCreateContainer,
+  UserListContainer,
+  UserUpdateContainer,
+} from "@/features/users";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
@@ -62,6 +66,15 @@ export const router = createBrowserRouter([
           {
             path: "create",
             element: <UserCreateContainer />,
+          },
+          {
+            path: ":id",
+            children: [
+              {
+                path: "update",
+                element: <UserUpdateContainer />,
+              },
+            ],
           },
         ],
       },
