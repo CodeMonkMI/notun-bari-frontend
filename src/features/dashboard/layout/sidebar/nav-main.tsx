@@ -13,53 +13,20 @@ import {
   IconUsers,
   type Icon,
 } from "@tabler/icons-react";
+import { Link } from "react-router";
 
 export function NavMain() {
-  const items: {
-    title: string;
-    url: string;
-    icon?: Icon;
-  }[] = [
-    {
-      title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
-    },
-    {
-      title: "Users",
-      url: "#",
-      icon: IconListDetails,
-    },
-    {
-      title: "Categories",
-      url: "#",
-      icon: IconChartBar,
-    },
-    {
-      title: "Pets",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Adoptions",
-      url: "#",
-      icon: IconUsers,
-    },
-    {
-      title: "Payments",
-      url: "#",
-      icon: IconUsers,
-    },
-  ];
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
+              <SidebarMenuButton tooltip={item.title} asChild>
+                <Link to={item.url}>
+                  {item.icon && <item.icon />}
+                  <span>{item.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
@@ -68,3 +35,42 @@ export function NavMain() {
     </SidebarGroup>
   );
 }
+
+type NavItem = {
+  title: string;
+  url: string;
+  icon?: Icon;
+};
+
+const items: NavItem[] = [
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: IconDashboard,
+  },
+  {
+    title: "Users",
+    url: "/dashboard/users",
+    icon: IconListDetails,
+  },
+  {
+    title: "Categories",
+    url: "#",
+    icon: IconChartBar,
+  },
+  {
+    title: "Pets",
+    url: "#",
+    icon: IconFolder,
+  },
+  {
+    title: "Adoptions",
+    url: "#",
+    icon: IconUsers,
+  },
+  {
+    title: "Payments",
+    url: "#",
+    icon: IconUsers,
+  },
+];
