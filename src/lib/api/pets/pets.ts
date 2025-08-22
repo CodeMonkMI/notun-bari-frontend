@@ -23,10 +23,10 @@ export type Adoption = {
 
 export type Review = {
   id: string;
-  comment: string;
+  comments: string;
   rating: number;
   created_at: string;
-  reviewer: { first_name: string; last_name: string };
+  reviewer: { first_name: string; last_name: string; name: string };
 };
 
 export type PaginatedResponse<T> = {

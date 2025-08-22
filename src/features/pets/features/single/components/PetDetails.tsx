@@ -1,25 +1,11 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Pet } from "@/lib/api/pets";
-import { IconArrowLeft } from "@tabler/icons-react";
-import { useNavigate } from "react-router";
 import { PetAdoptions } from "./PetAdoptions";
 import { PetReviews } from "./PetReviews";
 
 export function PetDetails({ pet }: { pet: Pet }) {
-  const navigate = useNavigate();
   return (
     <div>
-      <div className="flex items-center justify-end px-4 lg:px-6 mb-3">
-        <Button
-          variant={"secondary"}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <IconArrowLeft />
-        </Button>
-      </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 dark:text-white">
         <Card className="lg:col-span-1 shadow-lg rounded-2xl overflow-hidden">
           <img

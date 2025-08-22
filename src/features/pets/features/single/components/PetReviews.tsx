@@ -10,9 +10,9 @@ export function PetReviews({ petId }: { petId: string }) {
     <ul className="space-y-2">
       {data.results.map((review) => (
         <li key={review.id} className="border rounded p-2">
-          <p>{review.comment}</p>
+          <p>{review.comments}</p>
           <p className="text-sm text-gray-500">
-            By {review.reviewer.first_name} {review.reviewer.last_name} •{" "}
+            By {review.reviewer.name} •{" "}
             {new Date(review.created_at).toLocaleDateString()}
           </p>
         </li>
