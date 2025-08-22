@@ -55,7 +55,7 @@ const items: NavItem[] = [
   },
   {
     title: "Categories",
-    url: "#",
+    url: "/dashboard/categories",
     icon: IconChartBar,
   },
   {

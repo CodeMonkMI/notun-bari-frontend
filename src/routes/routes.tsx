@@ -4,6 +4,11 @@ import {
   LoginContainer,
   RegistrationContainer,
 } from "@/features/auth";
+import {
+  CategoryCreateContainer,
+  CategoryListContainer,
+  CategoryUpdateContainer,
+} from "@/features/categories";
 import { DashboardContainer } from "@/features/dashboard";
 import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import { HomeContainer } from "@/features/home";
@@ -73,6 +78,28 @@ export const router = createBrowserRouter([
               {
                 path: "update",
                 element: <UserUpdateContainer />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "categories",
+        children: [
+          {
+            path: "",
+            element: <CategoryListContainer />,
+          },
+          {
+            path: "create",
+            element: <CategoryCreateContainer />,
+          },
+          {
+            path: ":id",
+            children: [
+              {
+                path: "update",
+                element: <CategoryUpdateContainer />,
               },
             ],
           },

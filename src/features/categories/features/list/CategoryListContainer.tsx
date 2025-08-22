@@ -1,0 +1,58 @@
+import { DataTableSkeleton } from "@/components/DataTableSkeleton";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useCategories } from "@/lib/api/categories";
+import { IconPlus } from "@tabler/icons-react";
+import { useState } from "react";
+import { Link } from "react-router";
+import { CategoryDataTable } from "./components/data-table";
+
+export function ListContainer() {
+  const [globalFilter, setGlobalFilter] = useState("");
+
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
+
+  const { data: categories, isPending, isError } = useCategories(page);
+
+  if (isError) {
+    return <h2>Error fetching categories</h2>;
+  }
+  if (isPending) {
+    return <DataTableSkeleton rows={15} />;
+  }
+
+  return (
+    <div className="font-sans text-gray-800">
+      <div className="flex items-center justify-between px-4 lg:px-6 mb-3">
+        <Input
+          placeholder="Search categories..."
+          value={globalFilter ?? ""}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          className="max-w-xs text-gray-200"
+        />
+        <Button variant="outline" size="sm" className="text-gray-200">
+          <Link
+            className="flex items-center"
+            to={"/dashboard/categories/create"}
+          >
+            <IconPlus className="mr-1" />
+            Add Category
+          </Link>
+        </Button>
+      </div>
+
+      <CategoryDataTable
+        data={categories?.results ?? []}
+        setGlobalFilter={setGlobalFilter}
+        globalFilter={globalFilter}
+        page={page}
+        setPage={setPage}
+        pageSize={pageSize}
+        totalCount={categories?.count || 0}
+      />
+    </div>
+  );
+}
+
+export default ListContainer;
