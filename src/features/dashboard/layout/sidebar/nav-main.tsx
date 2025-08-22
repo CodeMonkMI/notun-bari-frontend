@@ -60,7 +60,7 @@ const items: NavItem[] = [
   },
   {
     title: "Pets",
-    url: "#",
+    url: "/dashboard/pets",
     icon: IconFolder,
   },
   {

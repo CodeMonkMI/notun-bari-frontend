@@ -13,6 +13,12 @@ import { DashboardContainer } from "@/features/dashboard";
 import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import { HomeContainer } from "@/features/home";
 import {
+  PetCreateContainer,
+  PetListContainer,
+  PetSingleContainer,
+  PetUpdateContainer,
+} from "@/features/pets";
+import {
   UserCreateContainer,
   UserListContainer,
   UserUpdateContainer,
@@ -76,6 +82,10 @@ export const router = createBrowserRouter([
             path: ":id",
             children: [
               {
+                path: "",
+                element: <PetUpdateContainer />,
+              },
+              {
                 path: "update",
                 element: <UserUpdateContainer />,
               },
@@ -100,6 +110,32 @@ export const router = createBrowserRouter([
               {
                 path: "update",
                 element: <CategoryUpdateContainer />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "pets",
+        children: [
+          {
+            path: "",
+            element: <PetListContainer />,
+          },
+          {
+            path: "create",
+            element: <PetCreateContainer />,
+          },
+          {
+            path: ":id",
+            children: [
+              {
+                path: "",
+                element: <PetSingleContainer />,
+              },
+              {
+                path: "update",
+                element: <PetUpdateContainer />,
               },
             ],
           },
