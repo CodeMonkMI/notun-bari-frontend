@@ -252,6 +252,7 @@ const columns: ColumnDef<z.infer<SingleUser>>[] = [
     header: "Actions",
     enableSorting: false,
     cell: ({ row }) => {
+      const user = row.original as SingleUser;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -274,11 +275,13 @@ const columns: ColumnDef<z.infer<SingleUser>>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => console.log("Suspend", row.original)}
+              disabled={!user.is_active}
             >
               Suspend User
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => console.log("Promote", row.original)}
+              disabled={user.is_staff}
             >
               Promote User
             </DropdownMenuItem>
