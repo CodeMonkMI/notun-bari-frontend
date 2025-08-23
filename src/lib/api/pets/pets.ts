@@ -42,11 +42,13 @@ export const petsPath = "/pets";
 const pets = async (
   page: number,
   pageSize: number,
-  filter: string
+  filter: string,
+  query: string
 ): Promise<PaginatedResponse<Pet>> => {
   let path = petsPath;
   if (filter === "my") path += "/my_pet/";
   if (filter === "adopted") path += "/adopted/";
+  path += `?${query}`;
   const res: AxiosResponse = await axios.get(path, {
     params: { page, page_size: pageSize },
   });
@@ -55,11 +57,12 @@ const pets = async (
 export const usePets = (
   page: number,
   pageSize: number,
-  filter: string = "all"
+  filter: string = "all",
+  query: string = ""
 ) =>
   useQuery({
-    queryKey: [petsPath, page, pageSize, filter],
-    queryFn: () => pets(page, pageSize, filter),
+    queryKey: [petsPath, page, pageSize, filter, query],
+    queryFn: () => pets(page, pageSize, filter, query),
     placeholderData: (p) => p,
   });
 

@@ -10,6 +10,10 @@ type MeResponse = {
   last_name: string;
   email: string;
   username: string;
+  date_joined: string;
+  is_active: boolean;
+  is_staff: boolean;
+  last_login: string | null;
   balance: number;
 };
 

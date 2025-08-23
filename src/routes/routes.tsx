@@ -1,5 +1,9 @@
 import FrontLayout from "@/components/layouts/FrontLayout";
 import {
+  AdoptionCreateContainer,
+  AdoptionListContainer,
+} from "@/features/adoptions";
+import {
   AuthLayout,
   LoginContainer,
   RegistrationContainer,
@@ -138,6 +142,19 @@ export const router = createBrowserRouter([
                 element: <PetUpdateContainer />,
               },
             ],
+          },
+        ],
+      },
+      {
+        path: "adoptions",
+        children: [
+          {
+            path: "",
+            element: <AdoptionListContainer />,
+          },
+          {
+            path: "create",
+            element: <AdoptionCreateContainer />,
           },
         ],
       },

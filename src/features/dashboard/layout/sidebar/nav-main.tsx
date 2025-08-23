@@ -65,7 +65,7 @@ const items: NavItem[] = [
   },
   {
     title: "Adoptions",
-    url: "#",
+    url: "/dashboard/adoptions",
     icon: IconUsers,
   },
   {
