@@ -3,16 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 
 import { usePets } from "@/lib/api/pets/pets";
+import { cn } from "@/lib/utils";
 import { PetDataTable } from "./components/data-table";
 
 export function ListContainer() {
   const [globalFilter, setGlobalFilter] = useState("");
+
+  const [searchParam] = useSearchParams();
+  const filter = searchParam.get("filter") ?? "all";
+
   const [page, setPage] = useState(1);
   const pageSize = 10;
-  const { data, isPending, isError } = usePets(page, pageSize);
+  const { data, isPending, isError } = usePets(page, pageSize, filter);
 
   if (isError) return <h2>Error fetching pets</h2>;
   if (isPending) return <DataTableSkeleton rows={pageSize} />;
@@ -20,12 +25,47 @@ export function ListContainer() {
   return (
     <div className="font-sans text-gray-800">
       <div className="flex items-center justify-between px-4 lg:px-6 mb-3">
-        <Input
-          placeholder="Search Pets..."
-          value={globalFilter ?? ""}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          className="max-w-xs text-gray-200"
-        />
+        <div className="flex items-center gap-x-3">
+          <Input
+            placeholder="Search Pets..."
+            value={globalFilter ?? ""}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            className="w-80 text-gray-200"
+          />
+          <Button
+            variant={filter === "all" ? "secondary" : "outline"}
+            size="sm"
+            className={cn("text-gray-200")}
+          >
+            <Link className="flex items-center" to={"/dashboard/pets"}>
+              All Pets
+            </Link>
+          </Button>
+          <Button
+            variant={filter === "my" ? "secondary" : "outline"}
+            size="sm"
+            className="text-gray-200"
+          >
+            <Link
+              className="flex items-center"
+              to={"/dashboard/pets?filter=my"}
+            >
+              My Pets
+            </Link>
+          </Button>
+          <Button
+            variant={filter === "adopted" ? "secondary" : "outline"}
+            size="sm"
+            className="text-gray-200"
+          >
+            <Link
+              className="flex items-center"
+              to={"/dashboard/pets?filter=adopted"}
+            >
+              My Adopted Pets
+            </Link>
+          </Button>
+        </div>
         <Button variant="outline" size="sm" className="text-gray-200">
           <Link className="flex items-center" to={"/dashboard/pets/create"}>
             <IconPlus className="mr-1" />

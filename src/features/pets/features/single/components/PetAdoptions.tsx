@@ -11,7 +11,10 @@ export function PetAdoptions({ petId }: { petId: string }) {
       {data.results.map((a) => (
         <li key={a.id} className="border rounded p-2">
           <p>
-            Adopted by: {a.adopted_by.first_name} {a.adopted_by.last_name}
+            Adopted by:{" "}
+            {a.adopted_by
+              ? `${a.adopted_by?.first_name} ${a.adopted_by?.last_name}`
+              : `Unknown`}
           </p>
           <p className="text-sm text-gray-500">
             Date: {new Date(a.date).toLocaleDateString()}

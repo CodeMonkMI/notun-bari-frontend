@@ -25,6 +25,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
+import { useSearchParams } from "react-router";
 import { Actions } from "./Actions";
 
 type Props = {
@@ -49,6 +50,9 @@ export function PetDataTable(props: Props) {
   } = props;
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
+
+  const [searchParam] = useSearchParams();
+  const filter = searchParam.get("filter");
 
   // --- Table Columns ---
   const columns: ColumnDef<Category>[] = [
@@ -92,16 +96,23 @@ export function PetDataTable(props: Props) {
       accessorKey: "visibility",
       header: "Visibility",
       enableSorting: true,
-    },
-    {
-      accessorKey: "owner",
-      header: "Owner",
-      enableSorting: true,
       cell: ({ getValue }) =>
-        `${(getValue() as Pet["owner"]).first_name} ${
-          (getValue() as Pet["owner"]).last_name
-        }`,
+        `${(getValue() as Pet["visibility"]) ?? "public"}`,
     },
+    ...(filter !== "my"
+      ? [
+          {
+            accessorKey: "owner",
+            header: "Owner",
+
+            enableSorting: true,
+            cell: ({ getValue }) =>
+              `${(getValue() as Pet["owner"])?.first_name || ""} ${
+                (getValue() as Pet["owner"])?.last_name || ""
+              }`,
+          },
+        ]
+      : []),
     {
       id: "actions",
       header: "Actions",
