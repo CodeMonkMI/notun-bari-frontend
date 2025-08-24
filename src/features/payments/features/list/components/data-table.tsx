@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useMe } from "@/lib/api/auth";
 import type { Payment } from "@/lib/api/payments";
 import {
   IconChevronLeft,
@@ -46,6 +48,7 @@ export function PaymentDataTable(props: Props) {
     pageSize = 12,
     totalCount,
   } = props;
+  const { data: me, isSuccess } = useMe();
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -94,20 +97,25 @@ export function PaymentDataTable(props: Props) {
       header: "Type",
       enableSorting: true,
     },
-    {
-      accessorKey: "user",
-      header: "User",
-      enableSorting: true,
-      cell: ({ row }) => {
-        const user = row.original.user;
+    ...(isSuccess && me?.is_staff
+      ? [
+          {
+            accessorKey: "user",
+            header: "User",
+            enableSorting: true,
+            cell: ({ row }: any) => {
+              const user = row.original.user;
 
-        return (
-          <>
-            {user?.first_name} {user.last_name}
-          </>
-        );
-      },
-    },
+              return (
+                <>
+                  {user?.first_name} {user.last_name}
+                </>
+              );
+            },
+          },
+        ]
+      : []),
+
     {
       id: "pet",
       header: "Pet",
