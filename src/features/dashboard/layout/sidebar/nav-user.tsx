@@ -22,7 +22,6 @@ import {
   IconLogout,
   IconUserCircle,
 } from "@tabler/icons-react";
-import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 export function NavUser() {
@@ -32,18 +31,13 @@ export function NavUser() {
   const logout = useLogout();
   const navigate = useNavigate();
 
-  const { data: me, isPending, isSuccess, isError } = useMe();
+  const { data: me, isPending, isError } = useMe();
 
   const logoutHandler = () => {
     logout();
     clear();
     navigate("/auth/login");
   };
-  useEffect(() => {
-    if (isSuccess) {
-      console.log(me);
-    }
-  }, [me, isSuccess]);
 
   if (isPending) {
     return (
