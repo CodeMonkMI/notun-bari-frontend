@@ -17,6 +17,10 @@ import { DashboardContainer } from "@/features/dashboard";
 import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import { HomeContainer } from "@/features/home";
 import {
+  PaymentCreateContainer,
+  PaymentListContainer,
+} from "@/features/payments";
+import {
   PetCreateContainer,
   PetListContainer,
   PetSingleContainer,
@@ -155,6 +159,19 @@ export const router = createBrowserRouter([
           {
             path: "create",
             element: <AdoptionCreateContainer />,
+          },
+        ],
+      },
+      {
+        path: "payments",
+        children: [
+          {
+            path: "",
+            element: <PaymentListContainer />,
+          },
+          {
+            path: "create",
+            element: <PaymentCreateContainer />,
           },
         ],
       },

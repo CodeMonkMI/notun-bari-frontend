@@ -70,7 +70,7 @@ const items: NavItem[] = [
   },
   {
     title: "Payments",
-    url: "#",
+    url: "/dashboard/payments",
     icon: IconUsers,
   },
 ];
