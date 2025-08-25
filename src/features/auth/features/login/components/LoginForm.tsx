@@ -16,12 +16,11 @@ import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
-  username: z.string().min(1),
-  password: z.string().min(1),
+  username: z.string().min(1, { message: "This field is required!" }),
+  password: z.string().min(1, { message: "This field is required!" }),
 });
 
 export function LoginForm() {
@@ -51,7 +50,6 @@ export function LoginForm() {
       await login(values);
     } catch (error) {
       console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
     }
   }
 

@@ -6,6 +6,8 @@ import {
 import {
   AuthLayout,
   LoginContainer,
+  PasswordResetConfirmContainer,
+  PasswordResetContainer,
   RegistrationContainer,
 } from "@/features/auth";
 import {
@@ -69,6 +71,19 @@ export const router = createBrowserRouter([
           {
             path: "register",
             element: <RegistrationContainer />,
+          },
+          {
+            path: "password-reset",
+            children: [
+              {
+                path: "",
+                element: <PasswordResetContainer />,
+              },
+              {
+                path: "confirm/:uid/:token",
+                element: <PasswordResetConfirmContainer />,
+              },
+            ],
           },
         ],
       },
