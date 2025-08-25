@@ -35,6 +35,7 @@ import {
   ProfileUpdateContainer,
   ProfileViewContainer,
 } from "@/features/profile";
+import { PasswordChangeContainer } from "@/features/settings";
 import {
   UserCreateContainer,
   UserLayout,
@@ -197,6 +198,15 @@ export const router = createBrowserRouter([
           {
             path: "update",
             element: <ProfileUpdateContainer />,
+          },
+        ],
+      },
+      {
+        path: "settings",
+        children: [
+          {
+            path: "password-change",
+            element: <PasswordChangeContainer />,
           },
         ],
       },

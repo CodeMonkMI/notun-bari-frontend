@@ -11,9 +11,9 @@ import { cn } from "@/lib/utils";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import { PaymentCreateForm } from "./components/CreateForm";
+import { PasswordChangeForm } from "./components/PasswordChangeForm";
 
-export function CreateContainer() {
+export function PasswordChangeContainer() {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
@@ -63,7 +63,7 @@ export function CreateContainer() {
                 <Button
                   variant={"secondary"}
                   onClick={() => {
-                    navigate("/dashboard/payments");
+                    navigate("/dashboard/profile");
                   }}
                 >
                   <IconArrowLeft />
@@ -71,7 +71,7 @@ export function CreateContainer() {
               </CardAction>
             </CardHeader>
             <CardContent>
-              <PaymentCreateForm />
+              <PasswordChangeForm />
             </CardContent>
           </Card>
         </div>

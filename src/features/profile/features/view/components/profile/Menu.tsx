@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useLogout } from "@/lib/api/auth";
 import { useAuthContext } from "@/store/authStore";
-import { LogOut, Settings, ShieldCheck, UserCog } from "lucide-react";
+import { LogOut, Settings, UserCog } from "lucide-react";
 import { useNavigate } from "react-router";
 
 export const Menu = () => {
@@ -25,12 +25,16 @@ export const Menu = () => {
         >
           <UserCog className="mr-2 h-4 w-4" /> Edit Profile
         </Button>
-        <Button variant="outline" className="w-full justify-start">
-          <Settings className="mr-2 h-4 w-4" /> Account Settings
+        <Button
+          variant="outline"
+          className="w-full justify-start"
+          onClick={() => {
+            navigate("/dashboard/settings/password-change");
+          }}
+        >
+          <Settings className="mr-2 h-4 w-4" /> Change Password
         </Button>
-        <Button variant="outline" className="w-full justify-start">
-          <ShieldCheck className="mr-2 h-4 w-4" /> Security
-        </Button>
+
         <Button
           variant="destructive"
           className="w-full justify-start cursor-pointer"

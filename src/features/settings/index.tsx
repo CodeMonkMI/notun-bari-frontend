@@ -1,1 +1,1 @@
-export { ViewContainer as ProfileViewContainer } from "./features/update-profile";
+export { PasswordChangeContainer } from "./features/change-password";

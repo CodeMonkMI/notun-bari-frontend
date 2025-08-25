@@ -1,1 +1,1 @@
-export { CreateContainer } from "./CreateContainer";
+export { PasswordChangeContainer } from "./PasswordChangeContainer";
