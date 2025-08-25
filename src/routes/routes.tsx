@@ -31,6 +31,7 @@ import {
   PetSingleContainer,
   PetUpdateContainer,
 } from "@/features/pets";
+import { ProfileViewContainer } from "@/features/profile";
 import {
   UserCreateContainer,
   UserLayout,
@@ -180,6 +181,15 @@ export const router = createBrowserRouter([
           {
             path: "create",
             element: <PaymentCreateContainer />,
+          },
+        ],
+      },
+      {
+        path: "profile",
+        children: [
+          {
+            path: "",
+            element: <ProfileViewContainer />,
           },
         ],
       },

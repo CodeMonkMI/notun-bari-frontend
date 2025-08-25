@@ -102,11 +102,21 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/dashboard/profile");
+                }}
+              >
                 <IconUserCircle />
-                Account
+                Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/dashboard/settings");
+                }}
+              >
                 <IconUserCircle />
                 Settings
               </DropdownMenuItem>
