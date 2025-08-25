@@ -2,9 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
 import { axios } from "../../axios";
 
-export const loginApiPath = "/auth/jwt/create/";
-
-type MeResponse = {
+export type MeResponse = {
   id: string;
   first_name: string;
   last_name: string;

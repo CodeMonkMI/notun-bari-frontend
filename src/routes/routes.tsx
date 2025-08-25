@@ -31,7 +31,10 @@ import {
   PetSingleContainer,
   PetUpdateContainer,
 } from "@/features/pets";
-import { ProfileViewContainer } from "@/features/profile";
+import {
+  ProfileUpdateContainer,
+  ProfileViewContainer,
+} from "@/features/profile";
 import {
   UserCreateContainer,
   UserLayout,
@@ -190,6 +193,10 @@ export const router = createBrowserRouter([
           {
             path: "",
             element: <ProfileViewContainer />,
+          },
+          {
+            path: "update",
+            element: <ProfileUpdateContainer />,
           },
         ],
       },

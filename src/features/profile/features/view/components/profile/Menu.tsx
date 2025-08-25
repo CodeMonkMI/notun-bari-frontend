@@ -16,7 +16,13 @@ export const Menu = () => {
   return (
     <div>
       <div className="space-y-2">
-        <Button variant="outline" className="w-full justify-start">
+        <Button
+          variant="outline"
+          className="w-full justify-start hover:cursor-pointer"
+          onClick={() => {
+            navigate("/dashboard/profile/update");
+          }}
+        >
           <UserCog className="mr-2 h-4 w-4" /> Edit Profile
         </Button>
         <Button variant="outline" className="w-full justify-start">
