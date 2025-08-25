@@ -10,10 +10,15 @@ import {
 } from "@/features/auth";
 import {
   CategoryCreateContainer,
+  CategoryLayout,
   CategoryListContainer,
   CategoryUpdateContainer,
 } from "@/features/categories";
-import { DashboardContainer } from "@/features/dashboard";
+import {
+  DashboardContainer,
+  DashboardNotAuthorized,
+  DashboardNotFound,
+} from "@/features/dashboard";
 import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import { HomeContainer } from "@/features/home";
 import {
@@ -28,10 +33,11 @@ import {
 } from "@/features/pets";
 import {
   UserCreateContainer,
+  UserLayout,
   UserListContainer,
   UserUpdateContainer,
 } from "@/features/users";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +83,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "users",
+        element: <UserLayout />,
         children: [
           {
             path: "",
@@ -103,6 +110,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "categories",
+        element: <CategoryLayout />,
         children: [
           {
             path: "",
@@ -174,6 +182,18 @@ export const router = createBrowserRouter([
             element: <PaymentCreateContainer />,
           },
         ],
+      },
+      {
+        path: "not-authorized",
+        element: <DashboardNotAuthorized />,
+      },
+      {
+        path: "not-found",
+        element: <DashboardNotFound />,
+      },
+      {
+        path: "*",
+        element: <Navigate to={"/dashboard/not-found"} />,
       },
     ],
   },
