@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { axios } from "@/lib/axios";
 import { authToken } from "@/lib/token/AuthToken";
-import React, { type PropsWithChildren, useEffect, useState } from "react";
+import { refreshToken } from "@/lib/token/RefreshToken";
+import React, {
+  type PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { AuthContext, defaultState } from "./useAuthContext";
 
 export type AuthStore = {
@@ -24,15 +31,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     defaultState.isHydrated
   );
 
-  useEffect(() => {
-    if (authToken.has) {
-      const user = authToken.decode();
-      setUser(user);
-      setIsAuthenticated(true);
-    }
-    setIsHydrated(true);
-  }, []);
-
   const setUserHandler = (user: any) => {
     setUser(user);
     setIsAuthenticated(true);
@@ -45,6 +43,50 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const setHydrated = (value: boolean) => {
     setIsHydrated(value);
   };
+
+  const refreshTheAccessToken = async (
+    data: string
+  ): Promise<{ access: string } | undefined> => {
+    const res = await axios.post("/auth/jwt/refresh", { refresh: data });
+    return res.data;
+  };
+
+  const handleTokenExpiration = useCallback(async () => {
+    try {
+      if (!authToken.has) {
+        setIsHydrated(true);
+        return;
+      }
+      if (authToken.isTokenValid()) {
+        setUserHandler(authToken.decode());
+        return;
+      }
+
+      if (!refreshToken.isValid()) {
+        refreshToken.remove();
+        authToken.remove();
+        setIsHydrated(true);
+        setIsAuthenticated(false);
+        return;
+      }
+
+      const data = await refreshTheAccessToken(refreshToken.get());
+
+      if (data) authToken.set(data?.access);
+      const newUser = authToken.decode(data?.access);
+
+      setUserHandler(newUser);
+    } catch (error) {
+      console.log("e");
+      console.log(error);
+    } finally {
+      setIsHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleTokenExpiration();
+  }, [handleTokenExpiration]);
 
   return (
     <AuthContext.Provider

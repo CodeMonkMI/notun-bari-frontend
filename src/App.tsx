@@ -7,6 +7,7 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.add("dark");
   }, []);
+
   return (
     <>
       <RouterProvider router={router} />,
