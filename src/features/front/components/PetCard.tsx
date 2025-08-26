@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 type ProductCardProps = {
   name: string;
-  price: string;
+  price: string | number;
   image: string;
   category?: string;
 };
@@ -24,7 +24,7 @@ export function PetCard({
         <p className="text-xs text-gray-500 mb-1">{category}</p>
         <h3 className="font-semibold text-gray-800 mb-2">{name}</h3>
         <div className="flex items-center justify-center gap-2">
-          <span className="text-orange-500 font-bold">{price}</span>
+          <span className="text-blue-500 font-bold">{price}</span>
         </div>
       </CardContent>
     </Card>

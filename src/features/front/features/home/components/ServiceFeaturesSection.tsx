@@ -10,7 +10,7 @@ export function ServiceFeaturesSection() {
             <CardContent className="flex items-center gap-4 p-0">
               <Truck className="h-12 w-12" />
               <div>
-                <h3 className="font-bold text-lg">we heal pets</h3>
+                <h3 className="font-bold text-lg capitalize">we heal pets</h3>
                 <p className="text-sm opacity-90">quick veterinary services</p>
               </div>
             </CardContent>
@@ -20,7 +20,9 @@ export function ServiceFeaturesSection() {
             <CardContent className="flex items-center gap-4 p-0">
               <Shield className="h-12 w-12" />
               <div>
-                <h3 className="font-bold text-lg">we care 4 pets</h3>
+                <h3 className="font-bold text-lg capitalize">
+                  We care for pets
+                </h3>
                 <p className="text-sm opacity-90">pet sheltering & adoption</p>
               </div>
             </CardContent>
@@ -30,7 +32,7 @@ export function ServiceFeaturesSection() {
             <CardContent className="flex items-center gap-4 p-0">
               <Headphones className="h-12 w-12" />
               <div>
-                <h3 className="font-bold text-lg">we love pets</h3>
+                <h3 className="font-bold text-lg capitalize">we love pets</h3>
                 <p className="text-sm opacity-90">Show love & donate us</p>
               </div>
             </CardContent>

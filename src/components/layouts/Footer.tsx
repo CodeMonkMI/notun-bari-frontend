@@ -1,24 +1,15 @@
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-10">
-      <div className="container mx-auto grid md:grid-cols-3 gap-10 text-center md:text-left">
-        <div>
-          <h4 className="font-bold text-white mb-2">United Pets</h4>
-          <p>We care about your pets with love and dedication.</p>
+    <footer className="bg-gray-800 text-white py-4 ">
+      <div className="container mx-auto  flex justify-between">
+        <div className="flex items-center gap-6 justify-center">
+          <span>📞 Call Support: +8801963636430</span>
+          <span>✉️ Email us: mmislam027@gmail.com</span>
         </div>
-        <div>
-          <h4 className="font-bold text-white mb-2">Contact Us</h4>
-          <p>email@yoursite.com</p>
-          <p>(123) 456-789</p>
+
+        <div className="flex items-center gap-6 justify-center">
+          © 2025 NotunBari. All Right Reserved.
         </div>
-        <div>
-          <h4 className="font-bold text-white mb-2">Working Hours</h4>
-          <p>Mon - Fri: 9am - 6pm</p>
-          <p>Weekends: Closed</p>
-        </div>
-      </div>
-      <div className="mt-10 text-center text-gray-500 text-sm">
-        © 2025 United Pets. Designed by IngridK.
       </div>
     </footer>
   );

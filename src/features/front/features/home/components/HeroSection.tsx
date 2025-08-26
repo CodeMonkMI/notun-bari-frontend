@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
@@ -8,8 +7,8 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">
-              Vitamins & Supplements
+            <h1 className="text-6xl leading-normal font-bold text-gray-800 capitalize mb-4">
+              Adopt Pet and make a partner for you.
             </h1>
             <h2 className="text-2xl text-gray-600 mb-6">Lowest Prices</h2>
             <p className="text-gray-600 mb-8">
@@ -23,14 +22,9 @@ export function HeroSection() {
 
           {/* Image */}
           <div className="relative">
-            <div className="absolute top-4 left-4 z-10">
-              <Badge className="bg-purple-600 text-white px-4 py-2 text-lg font-bold rounded-full">
-                SAVE UPTO 45%
-              </Badge>
-            </div>
             <div className="h-[65vh]">
               <img
-                src="https://zabrin.xyz/petenica/wp-content/uploads/revslider/product-1.png"
+                src="https://zabrin.xyz/petenica/wp-content/uploads/2018/03/ndtan_net_free_shutterstock_658232629.jpg"
                 alt="L-Lysine Supplement"
                 className=" w-full h-full"
               />

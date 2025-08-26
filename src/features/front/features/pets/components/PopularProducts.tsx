@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { PetCard } from "./PetCard";
+import { PetCard } from "../../../components/PetCard";
 import { SearchBarSection } from "./SearchBarSection";
 
 type Product = {
