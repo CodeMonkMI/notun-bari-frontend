@@ -15,27 +15,50 @@ export const usePet = (id: string) =>
   useQuery({ queryKey: [petsPath, id], queryFn: () => pet(id) });
 
 // --- Reviews ---
-const reviews = async (petId: string): Promise<PaginatedResponse<Review>> => {
-  const res: AxiosResponse = await axios.get(`${petsPath}/${petId}/reviews/`);
+type QueryParams = {
+  filter?: "my" | "adopted" | "all";
+  page?: number;
+  limit?: number;
+  query?: { [key: string]: string };
+};
+const reviews = async (
+  petId: string,
+  params?: QueryParams
+): Promise<PaginatedResponse<Review> | Review[]> => {
+  const { limit = 0, query = {}, page = 1 } = params || {};
+  const offset = (page - 1) * limit;
+
+  const res: AxiosResponse = await axios.get(`${petsPath}/${petId}/reviews/`, {
+    params: { limit, offset, ...query },
+  });
   return res.data;
 };
-export const usePetReviews = (petId: string) =>
+export const usePetReviews = (petId: string, params?: QueryParams) =>
   useQuery({
     queryKey: [petsPath, petId, "reviews"],
-    queryFn: () => reviews(petId),
+    queryFn: () => reviews(petId, params),
   });
 
 // --- Adoptions ---
+
 const adoptions = async (
-  petId: string
-): Promise<PaginatedResponse<Adoption>> => {
-  const res: AxiosResponse = await axios.get(`${petsPath}/${petId}/adoptions/`);
+  petId: string,
+  params?: QueryParams
+): Promise<PaginatedResponse<Adoption> | Adoption[]> => {
+  const { limit = 0, query = {}, page = 1 } = params || {};
+  const offset = (page - 1) * limit;
+  const res: AxiosResponse = await axios.get(
+    `${petsPath}/${petId}/adoptions/`,
+    {
+      params: { limit, offset, ...query },
+    }
+  );
   return res.data;
 };
-export const usePetAdoptions = (petId: string) =>
+export const usePetAdoptions = (petId: string, params?: QueryParams) =>
   useQuery({
     queryKey: [petsPath, petId, "adoptions"],
-    queryFn: () => adoptions(petId),
+    queryFn: () => adoptions(petId, params),
   });
 
 // --- CRUD (create, update, delete) ---
