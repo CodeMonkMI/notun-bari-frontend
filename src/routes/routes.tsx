@@ -22,7 +22,13 @@ import {
   DashboardNotFound,
 } from "@/features/dashboard";
 import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
-import { HomeContainer } from "@/features/home";
+import {
+  AboutContainer,
+  ContactContainer,
+  HomeContainer,
+  PetsContainer,
+} from "@/features/front";
+
 import {
   PaymentCreateContainer,
   PaymentListContainer,
@@ -54,6 +60,18 @@ export const router = createBrowserRouter([
       {
         path: "",
         element: <HomeContainer />,
+      },
+      {
+        path: "about",
+        element: <AboutContainer />,
+      },
+      {
+        path: "contact",
+        element: <ContactContainer />,
+      },
+      {
+        path: "pets",
+        element: <PetsContainer />,
       },
     ],
   },
