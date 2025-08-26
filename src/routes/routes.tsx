@@ -27,6 +27,7 @@ import {
   ContactContainer,
   HomeContainer,
   PetsContainer,
+  SinglePetContainer,
 } from "@/features/front";
 
 import {
@@ -71,7 +72,17 @@ export const router = createBrowserRouter([
       },
       {
         path: "pets",
-        element: <PetsContainer />,
+
+        children: [
+          {
+            path: "",
+            element: <PetsContainer />,
+          },
+          {
+            path: ":id",
+            element: <SinglePetContainer />,
+          },
+        ],
       },
     ],
   },

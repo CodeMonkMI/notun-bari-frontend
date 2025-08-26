@@ -79,7 +79,7 @@ export function AdoptionCreateForm(props: Props) {
           setServerErrors(errs.non_field_errors);
         }
         if (errs.details) {
-          setServerErrors([errs.details as any]);
+          setServerErrors([errs.details as unknown as string]);
         }
         if (Object.keys(errs).length > 0) {
           for (const key in errs) {

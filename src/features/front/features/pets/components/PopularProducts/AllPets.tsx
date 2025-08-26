@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePets2 } from "@/lib/api/pets";
 import { useState } from "react";
+import { Link } from "react-router";
 import { PetCard } from "../../../../components/PetCard";
 import { Pagination } from "./Pagination";
 
@@ -46,15 +47,15 @@ const Pets: React.FC<Props> = (props) => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {pets?.results.map((product, i) => (
-          <div key={i} onClick={() => {}}>
+        {pets?.results.map((pet, i) => (
+          <Link to={`/pets/${pet.id}`} key={i} onClick={() => {}}>
             <PetCard
-              name={product.name}
-              price={product.fees || 0}
+              name={pet.name}
+              price={pet.fees || 0}
               image="https://images.pexels.com/photos/544502/pexels-photo-544502.jpeg"
-              category={product.category_name}
+              category={pet.category_name}
             />
-          </div>
+          </Link>
         ))}
       </div>
       {pets.count > 0 && totalPages > 1 && (
