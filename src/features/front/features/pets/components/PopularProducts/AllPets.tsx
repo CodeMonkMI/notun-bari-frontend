@@ -1,20 +1,33 @@
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { usePets } from "@/lib/api/pets";
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconChevronsLeft,
-  IconChevronsRight,
-} from "@tabler/icons-react";
+import { usePets2 } from "@/lib/api/pets";
 import { useState } from "react";
 import { PetCard } from "../../../../components/PetCard";
+import { Pagination } from "./Pagination";
 
-const Pets = () => {
-  const [search, setSearch] = useState<string>("");
+type Props = {
+  search?: string;
+  category?: string;
+  pageSize?: number;
+};
+
+const Pets: React.FC<Props> = (props) => {
+  const { search = "", category = "", pageSize = 12 } = props;
+
   const [page, setPage] = useState<number>(1);
-  const pageSize = 12;
-  const { data: pets, isPending, isError } = usePets(page, pageSize);
+
+  const {
+    data: pets,
+    isPending,
+    isError,
+  } = usePets2({
+    limit: pageSize,
+    page,
+    query: {
+      search,
+      category__name__contains: category,
+    },
+  });
+
   const totalPages = Math.ceil((pets?.count ?? 1) / pageSize);
 
   if (isPending) {
@@ -44,37 +57,9 @@ const Pets = () => {
           </div>
         ))}
       </div>
-      <div className="flex items-center justify-center px-4 mt-10">
-        <div className="flex items-center gap-2">
-          <Button size="icon" onClick={() => setPage(1)} disabled={page === 1}>
-            <IconChevronsLeft />
-          </Button>
-          <Button
-            size="icon"
-            onClick={() => setPage((p) => Math.max(p - 1, 1))}
-            disabled={page === 1}
-          >
-            <IconChevronLeft />
-          </Button>
-          <span className="text-sm text-gray-600">
-            Page {page} of {totalPages}
-          </span>
-          <Button
-            size="icon"
-            onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-            disabled={page === totalPages}
-          >
-            <IconChevronRight />
-          </Button>
-          <Button
-            size="icon"
-            onClick={() => setPage(totalPages)}
-            disabled={page === totalPages}
-          >
-            <IconChevronsRight />
-          </Button>
-        </div>
-      </div>
+      {pets.count > 0 && totalPages > 1 && (
+        <Pagination page={page} setPage={setPage} totalPages={totalPages} />
+      )}
     </div>
   );
 };

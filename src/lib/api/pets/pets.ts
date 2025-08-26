@@ -2,69 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
 import { axios } from "../../axios";
 
-export type Pet = {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  category_name: string;
-  fees: number;
-  breed: string;
-  age: number;
-  owner: { first_name: string; last_name: string };
-  visibility: "public" | "private";
-};
-
-export type Adoption = {
-  id: string;
-  adopted_by: { first_name: string; last_name: string };
-  date: string;
-};
-
-export type Review = {
-  id: string;
-  comments: string;
-  rating: number;
-  created_at: string;
-  reviewer: { first_name: string; last_name: string; name: string };
-};
-
-export type PaginatedResponse<T> = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
-};
+import type { Adoption, PaginatedResponse, Pet, Review } from "./type";
 
 export const petsPath = "/pets";
-
-// --- Fetch all pets ---
-const pets = async (
-  page: number,
-  pageSize: number,
-  filter: string,
-  query: string
-): Promise<PaginatedResponse<Pet>> => {
-  let path = petsPath;
-  if (filter === "my") path += "/my_pet/";
-  if (filter === "adopted") path += "/adopted/";
-  path += `?${query}`;
-  const res: AxiosResponse = await axios.get(path, {
-    params: { page, page_size: pageSize },
-  });
-  return res.data;
-};
-export const usePets = (
-  page: number,
-  pageSize: number,
-  filter: string = "all",
-  query: string = ""
-) =>
-  useQuery({
-    queryKey: [petsPath, page, pageSize, filter, query],
-    queryFn: () => pets(page, pageSize, filter, query),
-    placeholderData: (p) => p,
-  });
 
 // --- Single pet ---
 const pet = async (id: string): Promise<Pet> => {

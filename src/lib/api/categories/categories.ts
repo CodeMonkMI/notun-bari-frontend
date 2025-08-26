@@ -1,34 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
 import { axios } from "../../axios";
-
-export type Category = {
-  id: string;
-  name: string;
-};
+import type { Category } from "./type";
 
 export const categoriesPath = "/categories";
-type ListResponse = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Category[];
-};
-
-// --- Fetch all categories ---
-const categories = async (page: number): Promise<ListResponse | undefined> => {
-  const data: AxiosResponse = await axios.get(categoriesPath, {
-    params: { page },
-  });
-  return data.data;
-};
-
-export const useCategories = (page: number) =>
-  useQuery({
-    queryKey: [categoriesPath, page],
-    queryFn: () => categories(page),
-    placeholderData: (p) => p,
-  });
 
 // --- Fetch single category ---
 const category = async (id: Category["id"]): Promise<Category | undefined> => {

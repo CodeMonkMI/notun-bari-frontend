@@ -5,7 +5,7 @@ import { IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router";
 
-import { usePets } from "@/lib/api/pets/pets";
+import { usePets } from "@/lib/api/pets";
 import { cn } from "@/lib/utils";
 import { PetDataTable } from "./components/data-table";
 

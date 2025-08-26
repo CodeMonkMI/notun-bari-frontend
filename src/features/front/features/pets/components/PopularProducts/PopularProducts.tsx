@@ -1,8 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import Pets from "./AllPets";
+import Categories from "./Categories";
 import { SearchBarSection } from "./SearchBarSection";
 
 export function PopularProducts() {
+  const [search, setSearch] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -12,21 +15,13 @@ export function PopularProducts() {
 
         {/* Category Tabs */}
         <div className="flex justify-between items-center mb-4">
-          <SearchBarSection />
+          <SearchBarSection search={search} setSearch={setSearch} />
           <div className="flex justify-center gap-8">
-            {["All", "Accessories", "Food", "Others"].map((tab, i) => (
-              <Button
-                key={i}
-                variant="ghost"
-                className={tab === "All" ? "text-orange-500" : "text-gray-600"}
-              >
-                {tab}
-              </Button>
-            ))}
+            <Categories category={category} setCategory={setCategory} />
           </div>
         </div>
 
-        <Pets />
+        <Pets search={search} category={category} />
       </div>
     </section>
   );
