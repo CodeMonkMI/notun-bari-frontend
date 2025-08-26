@@ -33,27 +33,27 @@ export type PaginatedResponse<T> = {
 export const paymentsPath = "/payments";
 
 // --- Fetch all payments ---
+type QueryParams = {
+  filter?: "my" | "adopted" | "all";
+  page?: number;
+  limit?: number;
+  query?: { [key: string]: string };
+};
 const payments = async (
-  page: number,
-  pageSize: number,
-  query: string = ""
-): Promise<PaginatedResponse<Payment>> => {
-  let path = paymentsPath;
-  path += `?${query}`;
-  const res: AxiosResponse = await axios.get(path, {
-    params: { page, page_size: pageSize },
+  params?: QueryParams
+): Promise<PaginatedResponse<Payment> | Payment[]> => {
+  const { limit = 0, query = {}, page = 1 } = params || {};
+  const offset = (page - 1) * limit;
+  const res: AxiosResponse = await axios.get(`${paymentsPath}/`, {
+    params: { limit, offset, ...query },
   });
   return res.data;
 };
 
-export const usePayments = (
-  page: number,
-  pageSize: number,
-  query: string = ""
-) =>
+export const usePayments = (params?: QueryParams) =>
   useQuery({
-    queryKey: [paymentsPath, page, pageSize, query],
-    queryFn: () => payments(page, pageSize, query),
+    queryKey: [paymentsPath, JSON.stringify(params)],
+    queryFn: () => payments(params),
     placeholderData: (p) => p,
   });
 

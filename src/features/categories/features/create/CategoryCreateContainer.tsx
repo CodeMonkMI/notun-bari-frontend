@@ -19,10 +19,8 @@ export function CreateContainer() {
         <div className="sm:w-3/4 lg:w-96 mx-auto">
           <Card>
             <CardHeader>
-              <CardTitle>Create a new account</CardTitle>
-              <CardDescription>
-                Enter user information to create your account
-              </CardDescription>
+              <CardTitle>Create a new category</CardTitle>
+              <CardDescription>Enter a suitable name</CardDescription>
               <CardAction>
                 <Button
                   variant={"secondary"}

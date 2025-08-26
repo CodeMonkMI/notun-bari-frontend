@@ -15,6 +15,7 @@ import { AxiosError } from "axios";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const passwordSchema = z
@@ -75,6 +76,7 @@ export function PasswordChangeForm() {
     if (isSuccess) {
       form.reset();
       navigate("/dashboard/profile");
+      toast("Password updated successfully!");
     }
   }, [navigate, isSuccess, form]);
 

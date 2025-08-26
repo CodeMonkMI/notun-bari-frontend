@@ -9,20 +9,25 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePet } from "@/lib/api/pets";
+import { useAuthContext } from "@/store/authStore";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { useNavigate, useParams } from "react-router";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { UpdateForm } from "./components/UpdateForm";
 
 export function UpdateContainer() {
   const navigate = useNavigate();
-  const params = useParams();
-  const { isPending, data: pet, isError } = usePet(params.id as string);
-
+  const { id } = useParams<{ id: string }>();
+  const { isPending, data: pet, isError } = usePet(id!);
+  const { user } = useAuthContext();
   if (isPending) {
     return <UpdateCategoryFormSkeleton />;
   }
   if (isError) {
     return <h2>Error fetching category</h2>;
+  }
+
+  if (user.user_id !== pet.owner.id) {
+    return <Navigate to="/dashboard/not-authorized" />;
   }
 
   return (

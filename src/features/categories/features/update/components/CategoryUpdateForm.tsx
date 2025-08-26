@@ -38,9 +38,16 @@ export function CategoryUpdateForm({ category }: { category: Category }) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await updateCategory({ id: category.id, data: values });
-      form.reset();
-      navigate("/dashboard/categories");
+      await updateCategory(
+        { id: category.id, data: values },
+        {
+          onSuccess() {
+            form.reset();
+            navigate("/dashboard/categories");
+            toast("Category updated successfully!");
+          },
+        }
+      );
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to update category.");

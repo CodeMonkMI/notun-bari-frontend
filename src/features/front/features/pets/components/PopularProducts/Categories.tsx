@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCategories2 } from "@/lib/api/categories";
+import { useCategories } from "@/lib/api/categories";
 import { useMemo } from "react";
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Categories: React.FC<Props> = ({ category, setCategory }) => {
-  const { data: response, isSuccess, isPending, isError } = useCategories2();
+  const { data: response, isSuccess, isPending, isError } = useCategories();
 
   const categories = useMemo(() => {
     if (!isSuccess || isPending) return [];

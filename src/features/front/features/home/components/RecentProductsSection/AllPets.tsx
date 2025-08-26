@@ -3,7 +3,14 @@ import { usePets } from "@/lib/api/pets";
 import { PetCard } from "../../../../components/PetCard";
 
 const Pets = () => {
-  const { data: pets, isPending, isError } = usePets(1, 4);
+  const {
+    data: pets,
+    isPending,
+    isError,
+  } = usePets({
+    limit: 4,
+    page: 1,
+  });
 
   if (isPending) {
     return (

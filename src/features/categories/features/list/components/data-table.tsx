@@ -57,11 +57,7 @@ export function CategoryDataTable(props: Props) {
       cell: ({ row }) => row.index + 1 + (page - 1) * pageSize,
       enableSorting: false,
     },
-    {
-      accessorKey: "id",
-      header: "ID",
-      enableSorting: true,
-    },
+
     {
       accessorKey: "name",
       header: "Name",

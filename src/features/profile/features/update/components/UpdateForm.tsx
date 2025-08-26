@@ -15,6 +15,7 @@ import { AxiosError } from "axios";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const profileSchema = z.object({
@@ -79,6 +80,7 @@ export function UpdateForm({ data }: { data: ProfileFormValues }) {
     if (isSuccess) {
       form.reset();
       navigate("/dashboard/profile");
+      toast("User profile data updated successfully!");
     }
   }, [navigate, isSuccess, form]);
 

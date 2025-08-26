@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { usePets } from "@/lib/api/pets";
 import { useUsers } from "@/lib/api/users";
 import { IconArrowLeft } from "@tabler/icons-react";
@@ -17,21 +18,23 @@ import { AdoptionCreateForm } from "./components/CreateForm";
 export function CreateContainer() {
   const navigate = useNavigate();
   const { data: users, isPending, isError } = useUsers();
-  const {
-    data: pets,
-    isPending: isPetPending,
-    isError: isPetError,
-  } = usePets(1, 10, "", "status=approved");
+  const { data, isPending: isPetPending, isError: isPetError } = usePets();
 
   const filteredUser = useMemo(() => {
     return users?.filter((user) => user.is_active) || [];
   }, [users]);
 
   if (isPending || isPetPending) {
-    return <h2>Loading</h2>;
+    return (
+      <div className="sm:w-3/4 lg:w-96 mx-auto">
+        <Skeleton className="w-full h-60" />
+      </div>
+    );
   }
   if (isError) return <h2>Failed to fetch user data</h2>;
   if (isPetError) return <h2>Failed to fetch pet data</h2>;
+
+  const pets = Array.isArray(data) ? data : data.results;
 
   return (
     <div className="font-sans text-gray-800">
@@ -39,15 +42,13 @@ export function CreateContainer() {
         <div className="sm:w-3/4 lg:w-96 mx-auto">
           <Card>
             <CardHeader>
-              <CardTitle>Request a pet adoptions</CardTitle>
-              <CardDescription>
-                Enter pet information for adoptions
-              </CardDescription>
+              <CardTitle>Adopt a pet</CardTitle>
+              <CardDescription>Select a to adopt</CardDescription>
               <CardAction>
                 <Button
                   variant={"secondary"}
                   onClick={() => {
-                    navigate(-1);
+                    navigate("/dashboard/adoptions");
                   }}
                 >
                   <IconArrowLeft />
@@ -55,7 +56,7 @@ export function CreateContainer() {
               </CardAction>
             </CardHeader>
             <CardContent>
-              <AdoptionCreateForm users={filteredUser} pets={pets.results} />
+              <AdoptionCreateForm users={filteredUser} pets={pets} />
             </CardContent>
           </Card>
         </div>

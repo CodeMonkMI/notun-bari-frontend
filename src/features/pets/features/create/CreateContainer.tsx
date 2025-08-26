@@ -14,11 +14,14 @@ import { CreateForm } from "./components/CreateForm";
 
 export function CreateContainer() {
   const navigate = useNavigate();
-  const { data: categories, isPending, isError } = useCategories(1);
+  const { data, isPending, isError } = useCategories();
   if (isPending) {
     return <h2>Loading</h2>;
   }
+
   if (isError) return <h2>Failed to fetch data</h2>;
+
+  const categories = Array.isArray(data) ? data : data?.results;
   return (
     <div className="font-sans text-gray-800">
       <div className="">
@@ -41,7 +44,7 @@ export function CreateContainer() {
               </CardAction>
             </CardHeader>
             <CardContent>
-              <CreateForm categories={categories?.results ?? []} />
+              <CreateForm categories={categories} />
             </CardContent>
           </Card>
         </div>

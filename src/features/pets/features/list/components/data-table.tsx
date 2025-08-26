@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { Category } from "@/lib/api/categories";
 import type { Pet } from "@/lib/api/pets";
 import {
   IconChevronLeft,
@@ -29,9 +28,7 @@ import { useSearchParams } from "react-router";
 import { Actions } from "./Actions";
 
 type Props = {
-  data: Category[];
-  globalFilter: string;
-  setGlobalFilter: React.Dispatch<React.SetStateAction<string>>;
+  data: Pet[];
   page: number;
   totalCount: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -41,8 +38,7 @@ type Props = {
 export function PetDataTable(props: Props) {
   const {
     data: initialData,
-    globalFilter,
-    setGlobalFilter,
+
     page,
     setPage,
     pageSize = 10,
@@ -55,7 +51,7 @@ export function PetDataTable(props: Props) {
   const filter = searchParam.get("filter");
 
   // --- Table Columns ---
-  const columns: ColumnDef<Category>[] = [
+  const columns: ColumnDef<Pet>[] = [
     {
       id: "counter",
       header: "#",
@@ -96,19 +92,18 @@ export function PetDataTable(props: Props) {
       accessorKey: "visibility",
       header: "Visibility",
       enableSorting: true,
-      cell: ({ getValue }) =>
-        `${(getValue() as Pet["visibility"]) ?? "public"}`,
+      cell: ({ row }) => `${row.original.visibility ?? "public"}`,
     },
     ...(filter !== "my"
       ? [
           {
             accessorKey: "owner",
             header: "Owner",
-
             enableSorting: true,
-            cell: ({ getValue }) =>
-              `${(getValue() as Pet["owner"])?.first_name || ""} ${
-                (getValue() as Pet["owner"])?.last_name || ""
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            cell: ({ row }: any) =>
+              `${row.original.owner?.first_name || ""} ${
+                row.original.owner?.last_name || ""
               }`,
           },
         ]
@@ -123,9 +118,8 @@ export function PetDataTable(props: Props) {
   const table = useReactTable({
     data: initialData,
     columns,
-    state: { sorting, globalFilter },
+    state: { sorting },
     onSortingChange: setSorting,
-    onGlobalFilterChange: setGlobalFilter,
     getRowId: (row) => row.id.toString(),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),

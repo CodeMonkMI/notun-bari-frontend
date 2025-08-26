@@ -30,9 +30,13 @@ export function CategoryCreateForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await createCategory(values);
-      form.reset();
-      navigate("/dashboard/categories");
+      await createCategory(values, {
+        onSuccess() {
+          form.reset();
+          navigate("/dashboard/categories");
+          toast("Category added successfully");
+        },
+      });
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.");

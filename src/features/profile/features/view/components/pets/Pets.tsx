@@ -11,7 +11,15 @@ import {
 import { usePets } from "@/lib/api/pets";
 
 export const Pets = () => {
-  const { data: pets, isPending, isError } = usePets(1, 5, "my");
+  const {
+    data: pets,
+    isPending,
+    isError,
+  } = usePets({
+    limit: 5,
+    page: 1,
+    filter: "my",
+  });
 
   if (isError) return <h2>Error fetching pets</h2>;
   if (isPending) return <DataTableSkeleton rows={5} />;

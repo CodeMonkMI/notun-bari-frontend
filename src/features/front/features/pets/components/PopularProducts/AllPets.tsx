@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { usePets2 } from "@/lib/api/pets";
+import { usePets } from "@/lib/api/pets";
 import { useState } from "react";
 import { Link } from "react-router";
 import { PetCard } from "../../../../components/PetCard";
@@ -20,7 +20,7 @@ const Pets: React.FC<Props> = (props) => {
     data: pets,
     isPending,
     isError,
-  } = usePets2({
+  } = usePets({
     limit: pageSize,
     page,
     query: {

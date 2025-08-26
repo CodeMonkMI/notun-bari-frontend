@@ -5,5 +5,5 @@ export {
   useCategoryUpdate,
 } from "./categories";
 
-export { useCategories, useCategories2 } from "./fetch";
+export { useCategories } from "./fetch";
 export type { Category } from "./type";

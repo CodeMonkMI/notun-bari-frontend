@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAdoptionCreate } from "@/lib/api/adoptions";
 import { useMe } from "@/lib/api/auth";
 import type { Pet } from "@/lib/api/pets";
@@ -63,7 +64,7 @@ export function AdoptionCreateForm(props: Props) {
     setServerErrors([]);
     try {
       await createAdoption(values);
-      toast.success("Adoption created");
+      toast.success("Pet has been adapted successfully");
       form.reset();
       navigate("/dashboard/adoptions");
     } catch {
@@ -76,10 +77,10 @@ export function AdoptionCreateForm(props: Props) {
       if (error instanceof AxiosError) {
         const errs: ValidationErrors = error.response?.data;
         if (errs.non_field_errors) {
-          setServerErrors(errs.non_field_errors);
+          toast.error(errs.non_field_errors);
         }
         if (errs.details) {
-          setServerErrors([errs.details as unknown as string]);
+          toast.error(errs.details as unknown as string);
         }
         if (Object.keys(errs).length > 0) {
           for (const key in errs) {
@@ -92,7 +93,11 @@ export function AdoptionCreateForm(props: Props) {
   }, [error, isError, form]);
 
   if (isMePending) {
-    return <h2>Loading...</h2>;
+    return (
+      <div>
+        <Skeleton className="w-full h-60" />
+      </div>
+    );
   }
 
   return (
@@ -111,7 +116,6 @@ export function AdoptionCreateForm(props: Props) {
         </div>
       )}
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {/* Pet select */}
         <FormField
           control={form.control}
           name="pet"
@@ -133,7 +137,7 @@ export function AdoptionCreateForm(props: Props) {
                         key={pet.id}
                         value={pet.id}
                       >
-                        {pet.name}
+                        {pet.name} - {pet.fees}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -144,7 +148,6 @@ export function AdoptionCreateForm(props: Props) {
           )}
         />
 
-        {/* User select */}
         {me && me.is_staff && (
           <FormField
             control={form.control}

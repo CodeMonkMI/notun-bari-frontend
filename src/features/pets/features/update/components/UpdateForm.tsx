@@ -19,6 +19,7 @@ import { useCategories } from "@/lib/api/categories";
 import type { Pet } from "@/lib/api/pets";
 import { usePetUpdate } from "@/lib/api/pets";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -62,8 +63,20 @@ export function UpdateForm({ pet }: { pet: Pet }) {
 
   async function onSubmit(values: z.infer<typeof schema>) {
     try {
-      await updatePet({ id: pet.id, data: values });
-      toast.success("Pet updated");
+      await updatePet(
+        { id: pet.id, data: values },
+        {
+          onError: (error) => {
+            if (axios.isAxiosError(error)) {
+              const errs = error.response?.data;
+              if (errs.detail) {
+                toast.error(errs.detail);
+              }
+            }
+          },
+        }
+      );
+      toast.success("Pet details updated successfully!");
       navigate("/dashboard/pets");
     } catch {
       toast.error("Failed to update pet");

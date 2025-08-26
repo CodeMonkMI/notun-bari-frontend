@@ -33,7 +33,7 @@ export function UpdateContainer() {
             <CardHeader>
               <CardTitle>Update Profile</CardTitle>
               <CardDescription>
-                Enter user information to update
+                Enter latest information about you
               </CardDescription>
               <CardAction>
                 <Button

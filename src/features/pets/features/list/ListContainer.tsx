@@ -13,11 +13,20 @@ export function ListContainer() {
   const [globalFilter, setGlobalFilter] = useState("");
 
   const [searchParam] = useSearchParams();
-  const filter = searchParam.get("filter") ?? "all";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const filter: any = searchParam.get("filter") ?? "all";
 
   const [page, setPage] = useState(1);
   const pageSize = 10;
-  const { data, isPending, isError } = usePets(page, pageSize, filter);
+
+  const { data, isPending, isError } = usePets({
+    page,
+    limit: pageSize,
+    filter,
+    query: {
+      search: globalFilter,
+    },
+  });
 
   if (isError) return <h2>Error fetching pets</h2>;
   if (isPending) return <DataTableSkeleton rows={pageSize} />;
@@ -73,14 +82,13 @@ export function ListContainer() {
           </Link>
         </Button>
       </div>
+
       <PetDataTable
         data={data?.results ?? []}
         page={page}
         setPage={setPage}
         pageSize={pageSize}
         totalCount={data?.count ?? 0}
-        setGlobalFilter={setGlobalFilter}
-        globalFilter={globalFilter}
       />
     </div>
   );

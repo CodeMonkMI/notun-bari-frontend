@@ -1,4 +1,4 @@
-export { usePets, usePets2 } from "./fetchPets";
+export { usePets } from "./fetchPets";
 export {
   usePet,
   usePetAdoptions,

@@ -28,8 +28,6 @@ import { Actions } from "./Actions";
 
 type Props = {
   data: Adoption[];
-  globalFilter: string;
-  setGlobalFilter: React.Dispatch<React.SetStateAction<string>>;
   page: number;
   totalCount: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -37,15 +35,7 @@ type Props = {
 };
 
 export function AdoptionDataTable(props: Props) {
-  const {
-    data: initialData,
-    globalFilter,
-    setGlobalFilter,
-    page,
-    setPage,
-    pageSize = 10,
-    totalCount,
-  } = props;
+  const { data: initialData, page, setPage, pageSize = 10, totalCount } = props;
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -101,9 +91,8 @@ export function AdoptionDataTable(props: Props) {
   const table = useReactTable({
     data: initialData,
     columns,
-    state: { sorting, globalFilter },
+    state: { sorting },
     onSortingChange: setSorting,
-    onGlobalFilterChange: setGlobalFilter,
     getRowId: (row) => row.id.toString(),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),

@@ -19,7 +19,7 @@ export const useCategory = (id: Category["id"]) =>
 
 // --- Create category ---
 export const createCategory = async (data: { name: string }) =>
-  axios.post(categoriesPath, data);
+  axios.post(`${categoriesPath}/`, data);
 
 export const useCategoryCreate = () => {
   const queryClient = useQueryClient();

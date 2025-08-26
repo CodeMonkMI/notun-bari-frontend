@@ -7,7 +7,7 @@ export type Pet = {
   fees: number;
   breed: string;
   age: number;
-  owner: { first_name: string; last_name: string };
+  owner: { first_name: string; last_name: string; id: string };
   visibility: "public" | "private";
 };
 

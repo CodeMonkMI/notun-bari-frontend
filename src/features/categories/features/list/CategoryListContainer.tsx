@@ -13,7 +13,13 @@ export function ListContainer() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
 
-  const { data: categories, isPending, isError } = useCategories(page);
+  const { data, isPending, isError } = useCategories({
+    limit: pageSize,
+    page,
+    query: {
+      search: globalFilter,
+    },
+  });
 
   if (isError) {
     return <h2>Error fetching categories</h2>;
@@ -43,13 +49,13 @@ export function ListContainer() {
       </div>
 
       <CategoryDataTable
-        data={categories?.results ?? []}
+        data={Array.isArray(data) ? data : data?.results ?? []}
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter}
         page={page}
         setPage={setPage}
         pageSize={pageSize}
-        totalCount={categories?.count || 0}
+        totalCount={Array.isArray(data) ? data.length : data?.count || 0}
       />
     </div>
   );

@@ -13,11 +13,13 @@ import { usePayments } from "@/lib/api/payments";
 import { cn } from "@/lib/utils";
 
 export const Payments = () => {
-  const { data: payments, isPending, isError } = usePayments(1, 10);
+  const { data, isPending, isError } = usePayments({
+    limit: 5,
+  });
 
   if (isError) return <h2>Error fetching Payment Details</h2>;
   if (isPending) return <DataTableSkeleton rows={5} isSearchBar={false} />;
-
+  const payments = Array.isArray(data) ? data : data.results;
   return (
     <>
       <Card>
@@ -28,14 +30,14 @@ export const Payments = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>ID</TableHead>
+                <TableHead>TRX ID</TableHead>
                 <TableHead>Amount</TableHead>
                 <TableHead>Method</TableHead>
                 <TableHead>Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {payments.results.map((p) => (
+              {payments.map((p) => (
                 <TableRow key={p.id}>
                   <TableCell>{p.transaction_id}</TableCell>
                   <TableCell>${p.amount}</TableCell>

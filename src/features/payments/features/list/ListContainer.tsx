@@ -4,25 +4,26 @@ import { Input } from "@/components/ui/input";
 import { usePayments } from "@/lib/api/payments";
 import { IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { Link } from "react-router";
 import { PaymentDataTable } from "./components/data-table";
 
 export function ListContainer() {
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const [searchParam] = useSearchParams();
-  const filter = searchParam.get("filter") ?? "all";
-
   const [page, setPage] = useState(1);
   const pageSize = 10;
-  const {
-    data: payments,
-    isPending,
-    isError,
-  } = usePayments(page, pageSize, filter);
+  const { data, isPending, isError } = usePayments({
+    page,
+    limit: pageSize,
+    query: {
+      search: globalFilter,
+    },
+  });
 
   if (isError) return <h2>Error fetching pets</h2>;
   if (isPending) return <DataTableSkeleton rows={pageSize} />;
+
+  const payments = Array.isArray(data) ? data : data.results;
 
   return (
     <div className="font-sans text-gray-800">
@@ -41,11 +42,11 @@ export function ListContainer() {
         </Button>
       </div>
       <PaymentDataTable
-        data={payments.results ?? []}
+        data={payments ?? []}
         page={page}
         setPage={setPage}
         pageSize={pageSize}
-        totalCount={payments?.count ?? 0}
+        totalCount={Array.isArray(data) ? data.length : data.count ?? 0}
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter}
       />

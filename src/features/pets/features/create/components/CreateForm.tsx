@@ -33,10 +33,13 @@ const schema = z.object({
   visibility: z.enum(["public", "private"]),
 });
 
+type FormValues = z.infer<typeof schema>;
+
 export function CreateForm({ categories = [] }: { categories?: Category[] }) {
   const navigate = useNavigate();
+
   const { mutateAsync: createPet, isPending } = usePetCreate();
-  const form = useForm<z.infer<typeof schema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
@@ -49,10 +52,10 @@ export function CreateForm({ categories = [] }: { categories?: Category[] }) {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof schema>) {
+  async function onSubmit(values: FormValues) {
     try {
       await createPet(values);
-      toast.success("Pet created");
+      toast.success("Pet details added for adoptions");
       form.reset();
       navigate("/dashboard/pets");
     } catch {
