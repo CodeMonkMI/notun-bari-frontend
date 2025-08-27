@@ -1,7 +1,8 @@
 import axios, { type AxiosInstance } from "axios";
 import { authToken } from "../token/AuthToken";
 
-const baseUrl = import.meta.env.API_BASE_URL || "http://127.0.0.1:8000/api/v1";
+const baseUrl =
+  import.meta.env.API_BASE_URL || "https://notun-bari.vercel.app/api/v1";
 
 export class Axios {
   private static baseUrl: string = baseUrl;
