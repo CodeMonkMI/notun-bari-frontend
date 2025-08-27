@@ -31,7 +31,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "types": [
-      "swiper"
+      "swiper",
+      "node"
     ]
   },
   "include": [

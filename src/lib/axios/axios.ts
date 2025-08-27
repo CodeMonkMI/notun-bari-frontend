@@ -1,12 +1,10 @@
 import axios, { type AxiosInstance } from "axios";
 import { authToken } from "../token/AuthToken";
 
-const baseUrl = "http://127.0.0.1:8000/api/v1";
+const baseUrl = import.meta.env.API_BASE_URL || "http://127.0.0.1:8000/api/v1";
 
 export class Axios {
   private static baseUrl: string = baseUrl;
-  private static token: string =
-    typeof authToken?.get === "function" ? authToken.get() : "";
   private static axiosInstance: AxiosInstance | null = null;
   private constructor() {}
 

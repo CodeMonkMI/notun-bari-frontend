@@ -4,6 +4,7 @@ import {
   AdoptionListContainer,
 } from "@/features/adoptions";
 import {
+  ActivateAccountContainer,
   AuthLayout,
   LoginContainer,
   PasswordResetConfirmContainer,
@@ -114,6 +115,10 @@ export const router = createBrowserRouter([
                 element: <PasswordResetConfirmContainer />,
               },
             ],
+          },
+          {
+            path: "activate/:uid/:token",
+            element: <ActivateAccountContainer />,
           },
         ],
       },

@@ -1,19 +1,28 @@
+import { cn } from "@/lib/utils";
 import { useAuthContext } from "@/store/authStore";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 type NavItem = {
   label: string;
   path: string;
 };
 
-const NavLinkItem = ({ label, path }: NavItem) => (
-  <Link
-    to={path}
-    className="text-gray-800 hover:text-blue-500 font-medium transition-colors"
-  >
-    {label}
-  </Link>
-);
+const NavLinkItem = ({ label, path }: NavItem) => {
+  const { pathname } = useLocation();
+  return (
+    <Link
+      to={path}
+      className={cn(
+        "text-gray-800 hover:text-blue-500 font-medium transition-colors",
+        {
+          "text-blue-500": pathname === path,
+        }
+      )}
+    >
+      {label}
+    </Link>
+  );
+};
 
 const Navbar = () => {
   const { isAuthenticated, isHydrated } = useAuthContext();
@@ -36,13 +45,17 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-6">
           {/* Logo */}
-          <Link className="text-2xl font-bold text-black" to={"/"}>
+          <Link className="text-2xl font-bold text-black " to={"/"}>
             Notun<span className="text-blue-400">Bari</span>
           </Link>
 
           <nav className="flex items-center gap-12">
             {navItems.map((item) => (
-              <NavLinkItem key={item.path} {...item} />
+              <NavLinkItem
+                key={item.path}
+                path={item.path}
+                label={item.label}
+              />
             ))}
             <NavLinkItem {...authItem} />
           </nav>

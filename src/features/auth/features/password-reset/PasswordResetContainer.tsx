@@ -16,10 +16,8 @@ export function PasswordResetContainer() {
         <div className="sm:w-2/3 md:w-2/4 lg:w-2/4 xl:w-1/4 mx-auto">
           <Card>
             <CardHeader>
-              <CardTitle>Register new account</CardTitle>
-              <CardDescription>
-                Enter your information to create your account
-              </CardDescription>
+              <CardTitle>Reset you account password</CardTitle>
+              <CardDescription>Enter your email address</CardDescription>
             </CardHeader>
             <CardContent>
               <ResetForm />
