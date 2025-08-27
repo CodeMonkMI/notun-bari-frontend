@@ -42,7 +42,7 @@ const AdoptButton: React.FC = () => {
   if (me?.is_staff) {
     return (
       <p className="text-destructive font-bold">
-        You can adopt pet from here. Go to dashboard to do such actions
+        You can't adopt pet from here. Go to dashboard to do such actions
       </p>
     );
   }
