@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCategories } from "@/lib/api/categories";
+import { useCategories, type Category } from "@/lib/api/categories";
 import type { Pet } from "@/lib/api/pets";
 import { usePetUpdate } from "@/lib/api/pets";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -83,15 +83,13 @@ export function UpdateForm({ pet }: { pet: Pet }) {
     }
   }
 
-  const {
-    data: categories,
-    isPending: categoryIsPending,
-    isError,
-  } = useCategories(1);
+  const { data, isPending: categoryIsPending, isError } = useCategories();
   if (categoryIsPending) {
     return <h2>Loading</h2>;
   }
   if (isError) return <h2>Failed to fetch data</h2>;
+
+  const categories = Array.isArray(data) ? data : data?.results;
 
   return (
     <Form {...form}>
@@ -136,7 +134,7 @@ export function UpdateForm({ pet }: { pet: Pet }) {
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent className="w-full">
-                    {categories?.results.map((cat) => (
+                    {categories?.map((cat: Category) => (
                       <SelectItem
                         className="w-full"
                         key={cat.id}

@@ -13,7 +13,7 @@ import type { ValidationErrors } from "@/lib/api/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -31,7 +31,7 @@ export function PaymentCreateForm() {
   } = usePaymentCreate();
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as Resolver<z.infer<typeof formSchema>>,
     defaultValues: {
       amount: 0,
     },
@@ -41,7 +41,7 @@ export function PaymentCreateForm() {
     try {
       await createPayment(values, {
         onSuccess: ({ url }) => {
-          window.location = url as any;
+          window.location.href = url;
         },
       });
     } catch (error) {
