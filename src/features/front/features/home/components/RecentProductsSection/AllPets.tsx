@@ -1,3 +1,4 @@
+import default_pet from "@/assets/default_pet.jpeg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePets } from "@/lib/api/pets";
 import { Link } from "react-router";
@@ -34,7 +35,7 @@ const Pets = () => {
             <PetCard
               name={pet.name}
               price={pet.fees || 0}
-              image="https://images.pexels.com/photos/544502/pexels-photo-544502.jpeg"
+              image={pet.image ?? default_pet}
               category={pet.category_name}
             />
           </Link>

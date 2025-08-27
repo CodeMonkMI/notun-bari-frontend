@@ -10,6 +10,7 @@ export type Pet = {
   owner: { first_name: string; last_name: string; id: string };
   visibility: "public" | "private";
   status?: "adopted";
+  image?: string;
   adopted_by?: {
     id: string;
     first_name: string;

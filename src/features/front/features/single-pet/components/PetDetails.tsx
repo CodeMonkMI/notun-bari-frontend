@@ -1,3 +1,4 @@
+import default_pet from "@/assets/default_pet.jpeg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePet } from "@/lib/api/pets";
 import { useAuthContext } from "@/store/authStore";
@@ -5,12 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import AdoptButton from "./AdoptButton";
-
 export function PetDetails() {
-  const { image } = {
-    image: "https://images.pexels.com/photos/544502/pexels-photo-544502.jpeg",
-  };
-
   const { isAuthenticated } = useAuthContext();
 
   const { id } = useParams<{ id: string }>();
@@ -33,15 +29,27 @@ export function PetDetails() {
 
   if (isError) return <h2>Error fetching data</h2>;
 
-  const { name, category_name, description, breed, age, owner, fees } =
-    petData!;
+  const {
+    name,
+    category_name,
+    description,
+    breed,
+    age,
+    owner,
+    fees,
+    image = default_pet,
+  } = petData!;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
       {/* Image */}
 
-      <div>
-        <img src={image} alt={name} className="rounded-lg shadow-lg w-full" />
+      <div className="w-full h-[500px] overflow-hidden">
+        <img
+          src={image}
+          alt={name}
+          className="rounded-lg shadow-lg w-full object-cover"
+        />
       </div>
 
       {/* Info */}
