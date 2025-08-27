@@ -1,14 +1,17 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePet } from "@/lib/api/pets";
+import { useAuthContext } from "@/store/authStore";
 import axios from "axios";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import AdoptButton from "./AdoptButton";
 
 export function PetDetails() {
   const { image } = {
     image: "https://images.pexels.com/photos/544502/pexels-photo-544502.jpeg",
   };
+
+  const { isAuthenticated } = useAuthContext();
 
   const { id } = useParams<{ id: string }>();
 
@@ -64,7 +67,18 @@ export function PetDetails() {
         </p>
 
         <p className="text-xl text-orange-500 font-semibold mb-6">${fees}</p>
-        {petData.status !== "adopted" && <AdoptButton />}
+        {isAuthenticated && petData.status !== "adopted" && <AdoptButton />}
+        {!isAuthenticated && (
+          <p>
+            <Link
+              to={"/auth/login"}
+              className="text-blue-400 underline underline-offset-4"
+            >
+              Login
+            </Link>{" "}
+            to adopt this pet
+          </p>
+        )}
       </div>
     </div>
   );
