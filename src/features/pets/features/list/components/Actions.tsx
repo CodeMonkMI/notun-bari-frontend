@@ -13,7 +13,7 @@ import { IconDotsVertical } from "@tabler/icons-react";
 import { Link, useSearchParams } from "react-router";
 import { toast } from "sonner";
 
-export function Actions({ pet }: { pet: Pet }) {
+export function Actions({ pet, is_admin }: { pet: Pet; is_admin: boolean }) {
   const { mutate: removePet, isPending } = usePetRemove();
   const { user } = useAuthContext();
   const [searchParam] = useSearchParams();
@@ -43,7 +43,7 @@ export function Actions({ pet }: { pet: Pet }) {
             View
           </Link>
         </DropdownMenuItem>
-        {(filter === "my" || pet.owner?.id === user.user_id) && (
+        {(filter === "my" || pet.owner?.id === user?.user_id || is_admin) && (
           <>
             <DropdownMenuItem>
               <Link to={`/dashboard/pets/${pet?.id}/update`} className="w-full">

@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useMe } from "@/lib/api/auth";
 import { usePet } from "@/lib/api/pets";
 import { useAuthContext } from "@/store/authStore";
 import { IconArrowLeft } from "@tabler/icons-react";
@@ -18,15 +19,16 @@ export function UpdateContainer() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { isPending, data: pet, isError } = usePet(id!);
+  const { data: me, isPending: isMePending, isSuccess: isMeSuccess } = useMe();
   const { user } = useAuthContext();
-  if (isPending) {
+  if (isPending || isMePending) {
     return <UpdateCategoryFormSkeleton />;
   }
   if (isError) {
-    return <h2>Error fetching category</h2>;
+    return <h2>Error fetching pet data</h2>;
   }
 
-  if (user.user_id !== pet.owner.id) {
+  if (!me?.is_staff && user.user_id !== pet.owner.id) {
     return <Navigate to="/dashboard/not-authorized" />;
   }
 

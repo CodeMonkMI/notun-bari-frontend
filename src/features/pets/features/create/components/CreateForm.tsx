@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { Category } from "@/lib/api/categories";
-import { usePetCreate } from "@/lib/api/pets";
+import { usePetCreate, type Pet } from "@/lib/api/pets";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -31,6 +31,12 @@ const schema = z.object({
   age: z.coerce.number().min(0),
   breed: z.string().optional(),
   visibility: z.enum(["public", "private"]),
+  image: z
+    .any()
+    .refine((file) => file instanceof FileList && file.length > 0, {
+      message: "Image is required",
+    })
+    .optional(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -49,12 +55,22 @@ export function CreateForm({ categories = [] }: { categories?: Category[] }) {
       age: 0,
       breed: "",
       visibility: "public",
+      image: undefined,
     },
   });
 
   async function onSubmit(values: FormValues) {
     try {
-      await createPet(values);
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => {
+        if (key === "image" && value instanceof FileList) {
+          formData.append("image", value[0]);
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      await createPet(formData as unknown as Partial<Pet>);
       toast.success("Pet details added for adoptions");
       form.reset();
       navigate("/dashboard/pets");
@@ -191,6 +207,23 @@ export function CreateForm({ categories = [] }: { categories?: Category[] }) {
                     ))}
                   </SelectContent>
                 </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Pet Image</FormLabel>
+              <FormControl>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => field.onChange(e.target.files)}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

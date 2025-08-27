@@ -1,3 +1,5 @@
+import default_pet from "@/assets/default_pet.jpeg";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -7,7 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useMe } from "@/lib/api/auth";
 import type { Pet } from "@/lib/api/pets";
+import { cn } from "@/lib/utils";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -36,19 +40,14 @@ type Props = {
 };
 
 export function PetDataTable(props: Props) {
-  const {
-    data: initialData,
-
-    page,
-    setPage,
-    pageSize = 10,
-    totalCount,
-  } = props;
+  const { data: initialData, page, setPage, pageSize = 10, totalCount } = props;
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const [searchParam] = useSearchParams();
   const filter = searchParam.get("filter");
+
+  const { data: me, isSuccess } = useMe();
 
   // --- Table Columns ---
   const columns: ColumnDef<Pet>[] = [
@@ -88,11 +87,58 @@ export function PetDataTable(props: Props) {
       header: "Age",
       enableSorting: true,
     },
+    ...(isSuccess && me?.is_staff
+      ? [
+          {
+            accessorKey: "status",
+            header: "Status",
+            enableSorting: true,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            cell: ({ row }: any) => {
+              const status = row.original.status;
+
+              return (
+                <Badge
+                  className={cn("", {
+                    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300":
+                      status === "pending",
+                    "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300":
+                      status === "approved",
+                    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300":
+                      status === "adopted",
+                    "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300":
+                      status === "withdrawn",
+                    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300":
+                      status === "suspended",
+                  })}
+                >
+                  {status}
+                </Badge>
+              );
+            },
+          },
+        ]
+      : []),
     {
       accessorKey: "visibility",
       header: "Visibility",
       enableSorting: true,
-      cell: ({ row }) => `${row.original.visibility ?? "public"}`,
+      cell: ({ row }: any) => {
+        const visibility = row.original.visibility;
+
+        return (
+          <Badge
+            className={cn("", {
+              "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300":
+                visibility === "public",
+              "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300":
+                visibility === "private",
+            })}
+          >
+            {visibility}
+          </Badge>
+        );
+      },
     },
     ...(filter !== "my"
       ? [
@@ -108,10 +154,32 @@ export function PetDataTable(props: Props) {
           },
         ]
       : []),
+
+    {
+      accessorKey: "image",
+      header: "image",
+      enableSorting: true,
+      cell: ({ row }) => (
+        <div>
+          <div>
+            <img
+              src={row.original.image ?? default_pet}
+              className="w-full h-16 object-cover"
+            />
+          </div>
+        </div>
+      ),
+    },
+
     {
       id: "actions",
       header: "Actions",
-      cell: ({ row }) => <Actions pet={row.original as Pet} />,
+      cell: ({ row }) => (
+        <Actions
+          pet={row.original as Pet}
+          is_admin={!!(isSuccess && me?.is_staff)}
+        />
+      ),
     },
   ];
 

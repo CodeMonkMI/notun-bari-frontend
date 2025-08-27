@@ -1,3 +1,4 @@
+import default_pet from "@/assets/default_pet.jpeg";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Pet } from "@/lib/api/pets";
 import { PetAdoptions } from "./PetAdoptions";
@@ -9,7 +10,7 @@ export function PetDetails({ pet }: { pet: Pet }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 dark:text-white">
         <Card className="lg:col-span-1 shadow-lg rounded-2xl overflow-hidden">
           <img
-            src={`https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg`} // placeholder avatar
+            src={pet.image ?? default_pet} // placeholder avatar
             alt={pet.name}
             className="w-full h-64 object-cover"
           />
