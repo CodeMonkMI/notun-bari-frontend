@@ -11,16 +11,25 @@ export class Axios {
   private constructor() {}
 
   public static get instance(): AxiosInstance | null {
-    this.createInstance();
+    if (!this.axiosInstance) {
+      this.createInstance();
+    }
+
     return this.axiosInstance;
   }
 
   private static createInstance() {
     this.axiosInstance = axios.create({
       baseURL: this.baseUrl,
-      headers: {
-        ...(this.token ? { Authorization: `Bearer ${this.token}` } : {}),
-      },
+    });
+    this.axiosInstance.interceptors.request.use((config) => {
+      const token = authToken.get();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      }
+      delete config.headers.Authorization;
+      return config;
     });
   }
 }

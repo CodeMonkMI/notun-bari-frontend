@@ -101,6 +101,12 @@ const items: NavItem[] = [
     access: [],
   },
   {
+    title: "Reviews",
+    url: "/dashboard/reviews",
+    icon: IconUsers,
+    access: [],
+  },
+  {
     title: "Payments",
     url: "/dashboard/payments",
     icon: IconUsers,

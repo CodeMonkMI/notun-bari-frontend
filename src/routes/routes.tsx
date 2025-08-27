@@ -44,6 +44,7 @@ import {
   ProfileUpdateContainer,
   ProfileViewContainer,
 } from "@/features/profile";
+import { ReviewListContainer } from "@/features/reviews";
 import { PasswordChangeContainer } from "@/features/settings";
 import {
   UserCreateContainer,
@@ -242,6 +243,15 @@ export const router = createBrowserRouter([
           {
             path: "update",
             element: <ProfileUpdateContainer />,
+          },
+        ],
+      },
+      {
+        path: "reviews",
+        children: [
+          {
+            path: "",
+            element: <ReviewListContainer />,
           },
         ],
       },

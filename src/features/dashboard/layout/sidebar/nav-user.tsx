@@ -16,28 +16,31 @@ import {
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLogout, useMe } from "@/lib/api/auth";
-import { useAuthContext } from "@/store/authStore";
 import {
   IconDotsVertical,
   IconLogout,
   IconUserCircle,
 } from "@tabler/icons-react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
 
-  const { clear } = useAuthContext();
-  const logout = useLogout();
+  const { mutate: logout, isSuccess } = useLogout();
   const navigate = useNavigate();
 
   const { data: me, isPending, isError } = useMe();
 
   const logoutHandler = () => {
     logout();
-    clear();
-    navigate("/auth/login");
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/auth/login");
+    }
+  }, [isSuccess, navigate]);
 
   if (isPending) {
     return (

@@ -25,7 +25,7 @@ export const NewUsers = () => {
     <>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Total Revenue</CardDescription>
+          <CardDescription>Total Users</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {users?.length}
           </CardTitle>

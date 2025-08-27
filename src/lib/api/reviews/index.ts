@@ -5,3 +5,5 @@ export {
   usePetReviewUpdate,
 } from "./petReviews";
 export type { PaginatedResponse, Review, Reviewer } from "./type";
+
+export { useReviewRemove, useReviews } from "./reviews";

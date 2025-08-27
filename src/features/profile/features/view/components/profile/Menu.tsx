@@ -1,16 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useLogout } from "@/lib/api/auth";
-import { useAuthContext } from "@/store/authStore";
 import { LogOut, Settings, UserCog } from "lucide-react";
 import { useNavigate } from "react-router";
 
 export const Menu = () => {
-  const { clear } = useAuthContext();
-  const logout = useLogout();
+  const { mutateAsync: logout } = useLogout();
+
   const navigate = useNavigate();
   const logoutHandler = () => {
     logout();
-    clear();
     navigate("/auth/login");
   };
   return (

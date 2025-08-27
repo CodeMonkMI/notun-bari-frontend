@@ -1,3 +1,4 @@
+import { authToken } from "@/lib/token/AuthToken";
 import { useQuery } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
 import { axios } from "../../axios";
@@ -17,13 +18,15 @@ export type MeResponse = {
 
 export const authMePath = "/auth/users/me";
 
-const me = async (): Promise<MeResponse | undefined> => {
+export const me = async (): Promise<MeResponse | undefined> => {
   const data: AxiosResponse = await axios.get(authMePath);
   return data.data;
 };
 
-export const useMe = () =>
-  useQuery({
+export const useMe = () => {
+  return useQuery({
     queryKey: [authMePath],
     queryFn: me,
+    enabled: authToken.has,
   });
+};
