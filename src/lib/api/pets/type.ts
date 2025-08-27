@@ -9,6 +9,12 @@ export type Pet = {
   age: number;
   owner: { first_name: string; last_name: string; id: string };
   visibility: "public" | "private";
+  status?: "adopted";
+  adopted_by?: {
+    id: string;
+    first_name: string;
+    last_name: string;
+  };
 };
 
 export type Adoption = {

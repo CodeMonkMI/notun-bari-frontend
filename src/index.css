@@ -118,3 +118,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.swiper-pagination {
+  margin-top: 20px; /* push it down */
+  position: relative; /* keep relative to the slider */
+}

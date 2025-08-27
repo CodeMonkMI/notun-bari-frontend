@@ -2,10 +2,10 @@ import { Award, Heart, Star, Users } from "lucide-react";
 
 export function StatsSection() {
   const stats = [
-    { number: "748", label: "Pet Adoptions", icon: Heart },
-    { number: "3560", label: "Happy Clients", icon: Users },
-    { number: "5674", label: "Vet Consultations", icon: Award },
-    { number: "6789", label: "Treatments", icon: Star },
+    { number: "200+", label: "Pet Adoptions", icon: Heart },
+    { number: "50+", label: "Happy Clients", icon: Users },
+    { number: "400+", label: "Vet Consultations", icon: Award },
+    { number: "1000+", label: "Treatments", icon: Star },
   ];
 
   return (

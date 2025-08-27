@@ -10,10 +10,9 @@ export function HeroSection() {
             <h1 className="text-6xl leading-normal font-bold text-gray-800 capitalize mb-4">
               Adopt Pet and make a partner for you.
             </h1>
-            <h2 className="text-2xl text-gray-600 mb-6">Lowest Prices</h2>
+            <h2 className="text-2xl text-gray-600 mb-6">Lowest Fees</h2>
             <p className="text-gray-600 mb-8">
-              Fortified with Glucosamine, Chondroitin and MSM to help support
-              the structural integrity of joints and connective tissues
+              Find your perfect furry friend and give them a loving home
             </p>
             <Button className="bg-gray-800 hover:bg-gray-900 text-white px-8 py-3">
               View Details

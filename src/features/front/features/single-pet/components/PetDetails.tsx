@@ -1,8 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePet } from "@/lib/api/pets";
-import { cn } from "@/lib/utils";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import AdoptButton from "./AdoptButton";
 
@@ -16,8 +15,6 @@ export function PetDetails() {
   const { data: petData, isError, error, isPending } = usePet(id!);
 
   const navigate = useNavigate();
-
-  const [serverErrors, setServerErrors] = useState<string[]>([]);
 
   useEffect(() => {
     if (isError) {
@@ -67,21 +64,7 @@ export function PetDetails() {
         </p>
 
         <p className="text-xl text-orange-500 font-semibold mb-6">${fees}</p>
-
-        <AdoptButton setServerErrors={setServerErrors} />
-        {serverErrors && (
-          <div className="mb-3">
-            {serverErrors.map((msg) => (
-              <p
-                data-slot="form-message"
-                className={cn("text-destructive text-sm")}
-                key={Math.random()}
-              >
-                {msg}
-              </p>
-            ))}
-          </div>
-        )}
+        {petData.status !== "adopted" && <AdoptButton />}
       </div>
     </div>
   );
