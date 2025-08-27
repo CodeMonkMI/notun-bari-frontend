@@ -123,6 +123,7 @@ export function PetDataTable(props: Props) {
       accessorKey: "visibility",
       header: "Visibility",
       enableSorting: true,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       cell: ({ row }: any) => {
         const visibility = row.original.visibility;
 

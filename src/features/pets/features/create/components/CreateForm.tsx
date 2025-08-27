@@ -18,7 +18,7 @@ import {
 import type { Category } from "@/lib/api/categories";
 import { usePetCreate, type Pet } from "@/lib/api/pets";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -46,7 +46,7 @@ export function CreateForm({ categories = [] }: { categories?: Category[] }) {
 
   const { mutateAsync: createPet, isPending } = usePetCreate();
   const form = useForm<FormValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema) as Resolver<FormValues>,
     defaultValues: {
       name: "",
       description: "",

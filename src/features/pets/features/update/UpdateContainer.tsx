@@ -28,7 +28,7 @@ export function UpdateContainer() {
     return <h2>Error fetching pet data</h2>;
   }
 
-  if (!me?.is_staff && user.user_id !== pet.owner.id) {
+  if (isMeSuccess && !me?.is_staff && user.user_id !== pet.owner.id) {
     return <Navigate to="/dashboard/not-authorized" />;
   }
 
