@@ -1,0 +1,1 @@
+export { FaqsContainer } from "./FaqsContainer";

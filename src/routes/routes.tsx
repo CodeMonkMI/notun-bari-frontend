@@ -26,11 +26,12 @@ import { DashboardLayout } from "@/features/dashboard/layout/DashboardLayout";
 import {
   AboutContainer,
   ContactContainer,
+  FaqsContainer,
   HomeContainer,
   PetsContainer,
   SinglePetContainer,
+  TeamContainer,
 } from "@/features/front";
-
 import {
   PaymentCreateContainer,
   PaymentListContainer,
@@ -71,6 +72,14 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         element: <ContactContainer />,
+      },
+      {
+        path: "faqs",
+        element: <FaqsContainer />,
+      },
+      {
+        path: "team",
+        element: <TeamContainer />,
       },
       {
         path: "pets",

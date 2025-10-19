@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 // --- Validation Schema ---
 const contactSchema = z.object({
@@ -39,6 +40,10 @@ export function ContactForm() {
 
   const onSubmit = (values: ContactFormValues) => {
     console.log("Form submitted:", values);
+    setTimeout(() => {
+      toast("We have received your message. ");
+      form.reset();
+    }, 3 * 1000);
     // Here you can call your API endpoint
   };
 

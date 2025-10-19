@@ -25,20 +25,18 @@ export function ContactContainer() {
                 <div>
                   <h3 className="font-semibold text-gray-800 mb-2">Address:</h3>
                   <p className="text-gray-600">
-                    52A, Tallstoi Town 5238
-                    <br />
-                    La city, IA 83756
+                    Kushumpur, Moheshpur, Jheniadah
                   </p>
                 </div>
 
                 <div>
                   <h3 className="font-semibold text-gray-800 mb-2">Phone:</h3>
-                  <p className="text-gray-600">0000 000 0000</p>
+                  <p className="text-gray-600">+8801963636430</p>
                 </div>
 
                 <div>
                   <h3 className="font-semibold text-gray-800 mb-2">Email:</h3>
-                  <p className="text-gray-600">info@petinica.com</p>
+                  <p className="text-gray-600">mmislam027@gmail.com</p>
                 </div>
               </div>
             </div>

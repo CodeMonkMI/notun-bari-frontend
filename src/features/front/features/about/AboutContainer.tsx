@@ -1,3 +1,4 @@
+import { CallToAction } from "./components/CallToAction";
 import { HeroSection } from "./components/HeroSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { StatsSection } from "./components/StatsSection";
@@ -10,6 +11,7 @@ export function AboutContainer() {
       <ServicesSection />
       <StatsSection />
       <TestimonialsSection />
+      <CallToAction />
     </div>
   );
 }

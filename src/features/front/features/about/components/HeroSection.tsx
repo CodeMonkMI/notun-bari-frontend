@@ -24,19 +24,24 @@ export function HeroSection() {
           </div>
           <div>
             <p className="text-gray-600 mb-6">
-              At Petenica, we truly care about your pets. <br /> Our mission is
+              At NotunBari, we truly care about your pets. <br /> Our mission is
               to provide a loving environment, quality care, and affordable
               adoption services for every furry friend.
             </p>
 
             <ul className="space-y-3 mb-8">
-              <li></li>
-              <li></li>
-              <li></li>
               {[
                 "Comprehensive veterinary check-ups for all pets",
                 "Affordable adoption fees with full transparency",
                 "Guidance and support for new pet parents",
+                "Vaccination, microchipping, and spay/neuter included",
+                "Safe, loving foster homes for rescued animals",
+                "Regular follow-ups to ensure successful adoption",
+
+                "Partnerships with local vets for discounted care",
+                "Ethical rehoming process with animal welfare as priority",
+                "Pet personality profiles to help find your perfect match",
+                "Community events and adoption drives throughout the year",
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
