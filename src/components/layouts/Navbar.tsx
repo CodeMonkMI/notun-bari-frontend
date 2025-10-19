@@ -30,8 +30,8 @@ const Navbar = () => {
   // Define common links
   const navItems: NavItem[] = [
     { label: "Home", path: "/" },
-    { label: "About", path: "/about" },
     { label: "Pets", path: "/pets" },
+    { label: "About", path: "/about" },
     { label: "Contact", path: "/contact" },
   ];
 
