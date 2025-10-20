@@ -1,9 +1,9 @@
 import { CallToAction } from "@/features/callToAction/CallToAction";
 import { PetAdoptionFAQ } from "@/features/faqs/fags";
+import { StatsSection } from "../about/components/StatsSection";
 import { GallerySection } from "./components/GallerySection";
 import { HeroSection } from "./components/HeroSection";
 import { RecentProductsSection } from "./components/RecentProductsSection";
-import { ServiceFeaturesSection } from "./components/ServiceFeaturesSection";
 
 export function HomeContainer() {
   return (
@@ -11,7 +11,7 @@ export function HomeContainer() {
       <HeroSection />
       <RecentProductsSection />
       <GallerySection />
-      <ServiceFeaturesSection />
+      <StatsSection />
       <PetAdoptionFAQ />
       <CallToAction />
     </div>
