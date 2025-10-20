@@ -1,4 +1,3 @@
-import default_pet from "@/assets/default_pet.jpeg";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +11,7 @@ import {
 import { useMe } from "@/lib/api/auth";
 import type { Pet } from "@/lib/api/pets";
 import { cn } from "@/lib/utils";
+import { type Category, getDefaultPetImage } from "@/utils/getDefaultPetImage";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -164,7 +164,10 @@ export function PetDataTable(props: Props) {
         <div>
           <div>
             <img
-              src={row.original.image ?? default_pet}
+              src={
+                row.original.image ??
+                getDefaultPetImage(row.original.category_name as Category)
+              }
               className="w-full h-16 object-cover"
             />
           </div>

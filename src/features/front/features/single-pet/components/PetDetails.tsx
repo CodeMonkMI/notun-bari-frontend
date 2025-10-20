@@ -2,6 +2,7 @@ import default_pet from "@/assets/default_pet.jpeg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePet } from "@/lib/api/pets";
 import { useAuthContext } from "@/store/authStore";
+import { getDefaultPetImage, type Category } from "@/utils/getDefaultPetImage";
 import axios from "axios";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router";
@@ -46,7 +47,7 @@ export function PetDetails() {
 
       <div className="w-full h-[500px] overflow-hidden">
         <img
-          src={image}
+          src={image ?? getDefaultPetImage(category_name as Category)}
           alt={name}
           className="rounded-lg shadow-lg w-full object-cover"
         />
@@ -74,7 +75,9 @@ export function PetDetails() {
           <b>Owner:</b> {owner.first_name} {owner.last_name}
         </p>
 
-        <p className="text-xl text-orange-500 font-semibold mb-6">${fees}</p>
+        <p className="text-xl text-orange-500 font-semibold mb-6">
+          ${Number(fees).toFixed(2)}
+        </p>
         {isAuthenticated && petData.status !== "adopted" && <AdoptButton />}
         {!isAuthenticated && (
           <p>
