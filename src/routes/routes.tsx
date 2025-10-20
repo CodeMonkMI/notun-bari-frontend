@@ -27,8 +27,10 @@ import {
   AboutContainer,
   ContactContainer,
   FaqsContainer,
+  HelpCenterContainer,
   HomeContainer,
   PetsContainer,
+  PrivacyPolicyContainer,
   SinglePetContainer,
   TeamContainer,
 } from "@/features/front";
@@ -80,6 +82,14 @@ export const router = createBrowserRouter([
       {
         path: "team",
         element: <TeamContainer />,
+      },
+      {
+        path: "help",
+        element: <HelpCenterContainer />,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicyContainer />,
       },
       {
         path: "pets",

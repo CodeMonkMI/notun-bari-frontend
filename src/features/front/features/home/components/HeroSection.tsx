@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 export function HeroSection() {
   return (
@@ -14,9 +15,11 @@ export function HeroSection() {
             <p className="text-gray-600 mb-8">
               Find your perfect furry friend and give them a loving home
             </p>
-            <Button className="bg-gray-800 hover:bg-gray-900 text-white px-8 py-3">
-              View Details
-            </Button>
+            <Link to={"/pets"}>
+              <Button className="bg-gray-800 hover:bg-gray-900 text-white px-8 py-3">
+                View Pets
+              </Button>
+            </Link>
           </div>
 
           {/* Image */}

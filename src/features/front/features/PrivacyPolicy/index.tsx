@@ -1,0 +1,1 @@
+export { PrivacyPolicyContainer } from "./PrivacyPolicyContainer";

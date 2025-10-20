@@ -2,7 +2,9 @@
 export { AboutContainer } from "./features/about";
 export { ContactContainer } from "./features/contact";
 export { FaqsContainer } from "./features/faqs";
+export { HelpCenterContainer } from "./features/HelpCenter";
 export { HomeContainer } from "./features/home";
 export { PetsContainer } from "./features/pets";
+export { PrivacyPolicyContainer } from "./features/PrivacyPolicy";
 export { SinglePetContainer } from "./features/single-pet";
 export { TeamContainer } from "./features/team";

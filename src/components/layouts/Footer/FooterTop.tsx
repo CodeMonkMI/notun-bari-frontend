@@ -16,7 +16,7 @@ const companyLinks = [
 ];
 
 const resourceLinks = [
-  { label: "Help", href: "/help" },
+  { label: "Help Center", href: "/help" },
   { label: "Privacy Policy", href: "/privacy-policy" },
 ];
 
