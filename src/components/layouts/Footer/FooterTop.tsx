@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Facebook, Github, Link, Linkedin, Youtube } from "lucide-react";
+import { Link as RouterLink } from "react-router";
 
 const productLinks = [
   { label: "About", href: "/about" },
@@ -98,13 +99,12 @@ function FooterColumn({
       <ul className="space-y-3 text-sm">
         {items.map((item) => (
           <li key={item.label}>
-            <a
-              href={item.href}
+            <RouterLink
+              to={item.href}
               className="hover:text-white transition-colors text-gray-400"
-              title={item.label}
             >
               {item.label}
-            </a>
+            </RouterLink>
           </li>
         ))}
       </ul>

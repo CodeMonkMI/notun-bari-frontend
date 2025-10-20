@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart } from "lucide-react";
+import { Link } from "react-router";
 
 export function CallToAction() {
   return (
@@ -18,12 +19,20 @@ export function CallToAction() {
               away!
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
-              <Button size="lg">
-                <Heart className="mr-2 h-4 w-4" /> Adopt Now
-              </Button>
-              <Button size="lg" variant="outline">
-                Contact Us <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link to={"/pets"}>
+                <Button size="lg" className="hover:cursor-pointer">
+                  <Heart className="mr-2 h-4 w-4" /> Adopt Now
+                </Button>
+              </Link>
+              <Link to={"/contact"}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="hover:cursor-pointer"
+                >
+                  Contact Us <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
